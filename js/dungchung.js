@@ -549,9 +549,7 @@ function addTopNav() {
                 <a href="mailto:contact@thegioididong.com"><i class="fa fa-envelope"></i> contact@thegioididong.com</a>
             </div>
             <div class="account">
-                <a href="dangnhapnhanvien.html"><i class="fa fa-user"></i> Đăng nhập nhân viên</a>
-                <a href="#" onclick="showTaiKhoan(true)"><i class="fa fa-user"></i> Tài khoản</a>
-                <a href="giohang.html"><i class="fa fa-shopping-cart"></i> Giỏ hàng <span class="cart-number">0</span></a>
+                <a href="dangnhap.html"><i class="fa fa-user"></i> Đăng nhập nhân viên</a>
             </div>
         </div>
     `;

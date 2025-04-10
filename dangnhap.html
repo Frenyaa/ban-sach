@@ -11,14 +11,14 @@
     <div class="container">
         <div class="login-form">
             <h2>Đăng nhập nhân viên</h2>
-            <form id="loginForm">
+            <form id="loginForm" onsubmit="return logIn(this);">
                 <div class="form-group">
                     <label for="username">Tên đăng nhập:</label>
                     <input type="text" id="username" name="username" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Mật khẩu:</label>
-                    <input type="password" id="password" name="password" required>
+                    <input type="password" id="password" name="pass" required>
                 </div>
                 <button type="submit" class="btn-login">Đăng nhập</button>
             </form>
@@ -26,6 +26,5 @@
     </div>
 
     <script src="js/dungchung.js"></script>
-    <script src="js/dangnhap.js"></script>
 </body>
 </html> 
