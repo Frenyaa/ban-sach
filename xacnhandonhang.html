@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xác nhận đơn hàng</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .success-icon {
+            font-size: 64px;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+        .order-info {
+            text-align: left;
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px;
+        }
+        .btn-primary {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="success-icon">✓</div>
+        <h2>Đặt hàng thành công!</h2>
+        <p>Cảm ơn bạn đã đặt hàng. Chúng tôi sẽ xử lý đơn hàng của bạn trong thời gian sớm nhất.</p>
+        
+        <div class="order-info" id="orderInfo">
+            <!-- Thông tin đơn hàng sẽ được thêm vào đây -->
+        </div>
+
+        <a href="index.html" class="btn btn-primary">Tiếp tục mua sắm</a>
+    </div>
+
+    <script>
+        // Lấy thông tin đơn hàng cuối cùng từ localStorage
+        const orders = JSON.parse(localStorage.getItem('orders')) || [];
+        const lastOrder = orders[orders.length - 1];
+        const orderInfo = document.getElementById('orderInfo');
+
+        if (lastOrder) {
+            let paymentMethod = '';
+            switch(lastOrder.paymentMethod) {
+                case 'cash':
+                    paymentMethod = 'Thanh toán tiền mặt khi nhận hàng';
+                    break;
+                case 'ewallet':
+                    paymentMethod = 'Ví điện tử';
+                    break;
+                case 'credit':
+                    paymentMethod = 'Thẻ tín dụng/Thẻ ghi nợ';
+                    break;
+            }
+
+            orderInfo.innerHTML = `
+                <h3>Thông tin đơn hàng</h3>
+                <p><strong>Mã đơn hàng:</strong> #${lastOrder.id}</p>
+                <p><strong>Ngày đặt:</strong> ${lastOrder.date}</p>
+                <p><strong>Phương thức thanh toán:</strong> ${paymentMethod}</p>
+                <p><strong>Tổng tiền:</strong> ${lastOrder.total.toLocaleString()} VNĐ</p>
+                <p><strong>Trạng thái:</strong> ${lastOrder.status}</p>
+                
+                <h4>Chi tiết đơn hàng:</h4>
+                <ul>
+                    ${lastOrder.items.map(item => `
+                        <li>${item.name} x ${item.quantity} - ${(item.price * item.quantity).toLocaleString()} VNĐ</li>
+                    `).join('')}
+                </ul>
+            `;
+        }
+    </script>
+</body>
+</html> 

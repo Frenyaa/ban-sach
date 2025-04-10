@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý nhân viên</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .tab {
+            padding: 10px 20px;
+            background-color: #f1f1f1;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .tab.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .content {
+            display: none;
+        }
+        .content.active {
+            display: block;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+        .btn-primary {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .btn-danger {
+            background-color: #f44336;
+            color: white;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Quản lý nhân viên</h1>
+            <button class="btn btn-danger" onclick="logout()">Đăng xuất</button>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('books')">Quản lý sách</button>
+            <button class="tab" onclick="showTab('orders')">Quản lý đơn hàng</button>
+        </div>
+
+        <div id="books" class="content active">
+            <button class="btn btn-primary" onclick="showAddBookForm()">Thêm sách mới</button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã sách</th>
+                        <th>Tên sách</th>
+                        <th>Giá</th>
+                        <th>Số lượng</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody id="bookList">
+                    <!-- Danh sách sách sẽ được thêm vào đây bằng JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+        <div id="orders" class="content">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã đơn hàng</th>
+                        <th>Khách hàng</th>
+                        <th>Ngày đặt</th>
+                        <th>Tổng tiền</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody id="orderList">
+                    <!-- Danh sách đơn hàng sẽ được thêm vào đây bằng JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Kiểm tra đăng nhập
+        if (!localStorage.getItem('isLoggedIn') || localStorage.getItem('userRole') !== 'staff') {
+            window.location.href = 'dangnhapnhanvien.html';
+        }
+
+        function logout() {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('userRole');
+            window.location.href = 'dangnhapnhanvien.html';
+        }
+
+        function showTab(tabName) {
+            // Ẩn tất cả các tab và nội dung
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.content').forEach(content => content.classList.remove('active'));
+            
+            // Hiển thị tab và nội dung được chọn
+            document.querySelector(`.tab[onclick="showTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        }
+
+        function showAddBookForm() {
+            // Hiển thị form thêm sách mới
+            const form = `
+                <div class="form-group">
+                    <label>Tên sách:</label>
+                    <input type="text" id="bookName">
+                </div>
+                <div class="form-group">
+                    <label>Giá:</label>
+                    <input type="number" id="bookPrice">
+                </div>
+                <div class="form-group">
+                    <label>Số lượng:</label>
+                    <input type="number" id="bookQuantity">
+                </div>
+                <button class="btn btn-primary" onclick="addBook()">Thêm sách</button>
+            `;
+            // Thêm form vào DOM
+        }
+
+        function addBook() {
+            // Xử lý thêm sách mới
+        }
+
+        // Tải danh sách sách và đơn hàng khi trang được tải
+        window.onload = function() {
+            loadBooks();
+            loadOrders();
+        };
+
+        function loadBooks() {
+            // Tải danh sách sách từ localStorage hoặc API
+        }
+
+        function loadOrders() {
+            // Tải danh sách đơn hàng từ localStorage hoặc API
+        }
+    </script>
+</body>
+</html> 

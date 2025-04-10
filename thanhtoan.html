@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh toán đơn hàng</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .payment-methods {
+            margin-bottom: 20px;
+        }
+        .payment-method {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        .payment-method:hover {
+            background-color: #f5f5f5;
+        }
+        .payment-method.selected {
+            border-color: #4CAF50;
+            background-color: #f0fff0;
+        }
+        .payment-method input[type="radio"] {
+            margin-right: 10px;
+        }
+        .payment-details {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .payment-details.active {
+            display: block;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn-primary {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #45a049;
+        }
+        .order-summary {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+        .order-summary h3 {
+            margin-top: 0;
+        }
+        .order-items {
+            margin-bottom: 10px;
+        }
+        .order-total {
+            font-weight: bold;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Thanh toán đơn hàng</h2>
+        
+        <div class="order-summary">
+            <h3>Tóm tắt đơn hàng</h3>
+            <div class="order-items" id="orderItems">
+                <!-- Danh sách sản phẩm sẽ được thêm vào đây -->
+            </div>
+            <div class="order-total" id="orderTotal">
+                <!-- Tổng tiền sẽ được hiển thị ở đây -->
+            </div>
+        </div>
+
+        <div class="payment-methods">
+            <h3>Chọn phương thức thanh toán</h3>
+            
+            <div class="payment-method" onclick="selectPaymentMethod('cash')">
+                <input type="radio" name="payment" id="cash" value="cash">
+                <label for="cash">Thanh toán tiền mặt khi nhận hàng</label>
+            </div>
+
+            <div class="payment-method" onclick="selectPaymentMethod('ewallet')">
+                <input type="radio" name="payment" id="ewallet" value="ewallet">
+                <label for="ewallet">Ví điện tử</label>
+            </div>
+
+            <div class="payment-method" onclick="selectPaymentMethod('credit')">
+                <input type="radio" name="payment" id="credit" value="credit">
+                <label for="credit">Thẻ tín dụng/Thẻ ghi nợ</label>
+            </div>
+        </div>
+
+        <div id="cashDetails" class="payment-details">
+            <p>Bạn sẽ thanh toán bằng tiền mặt khi nhận hàng.</p>
+        </div>
+
+        <div id="ewalletDetails" class="payment-details">
+            <div class="form-group">
+                <label>Chọn ví điện tử:</label>
+                <select id="ewalletType">
+                    <option value="momo">Momo</option>
+                    <option value="zalopay">ZaloPay</option>
+                    <option value="vnpay">VNPay</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Số điện thoại:</label>
+                <input type="text" id="ewalletPhone" placeholder="Nhập số điện thoại">
+            </div>
+        </div>
+
+        <div id="creditDetails" class="payment-details">
+            <div class="form-group">
+                <label>Số thẻ:</label>
+                <input type="text" id="cardNumber" placeholder="Nhập số thẻ">
+            </div>
+            <div class="form-group">
+                <label>Tên chủ thẻ:</label>
+                <input type="text" id="cardName" placeholder="Nhập tên chủ thẻ">
+            </div>
+            <div class="form-group">
+                <label>Ngày hết hạn:</label>
+                <input type="text" id="cardExpiry" placeholder="MM/YY">
+            </div>
+            <div class="form-group">
+                <label>Mã CVV:</label>
+                <input type="text" id="cardCVV" placeholder="Nhập mã CVV">
+            </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="processPayment()">Xác nhận thanh toán</button>
+    </div>
+
+    <script>
+        // Lấy thông tin đơn hàng từ localStorage
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const orderItems = document.getElementById('orderItems');
+        const orderTotal = document.getElementById('orderTotal');
+        let total = 0;
+
+        // Hiển thị thông tin đơn hàng
+        cart.forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            total += itemTotal;
+            orderItems.innerHTML += `
+                <div>${item.name} x ${item.quantity} - ${itemTotal.toLocaleString()} VNĐ</div>
+            `;
+        });
+        orderTotal.textContent = `Tổng tiền: ${total.toLocaleString()} VNĐ`;
+
+        // Xử lý chọn phương thức thanh toán
+        function selectPaymentMethod(method) {
+            // Ẩn tất cả các form chi tiết
+            document.querySelectorAll('.payment-details').forEach(detail => {
+                detail.classList.remove('active');
+            });
+            
+            // Hiển thị form chi tiết tương ứng
+            document.getElementById(`${method}Details`).classList.add('active');
+            
+            // Cập nhật trạng thái chọn
+            document.querySelectorAll('.payment-method').forEach(method => {
+                method.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+        }
+
+        // Xử lý thanh toán
+        function processPayment() {
+            const selectedMethod = document.querySelector('input[name="payment"]:checked');
+            if (!selectedMethod) {
+                alert('Vui lòng chọn phương thức thanh toán');
+                return;
+            }
+
+            const method = selectedMethod.value;
+            let isValid = true;
+
+            // Kiểm tra thông tin thanh toán
+            if (method === 'ewallet') {
+                const phone = document.getElementById('ewalletPhone').value;
+                if (!phone) {
+                    alert('Vui lòng nhập số điện thoại');
+                    isValid = false;
+                }
+            } else if (method === 'credit') {
+                const cardNumber = document.getElementById('cardNumber').value;
+                const cardName = document.getElementById('cardName').value;
+                const cardExpiry = document.getElementById('cardExpiry').value;
+                const cardCVV = document.getElementById('cardCVV').value;
+
+                if (!cardNumber || !cardName || !cardExpiry || !cardCVV) {
+                    alert('Vui lòng điền đầy đủ thông tin thẻ');
+                    isValid = false;
+                }
+            }
+
+            if (isValid) {
+                // Tạo đơn hàng mới
+                const order = {
+                    id: Date.now(),
+                    items: cart,
+                    total: total,
+                    paymentMethod: method,
+                    status: 'Đang xử lý',
+                    date: new Date().toLocaleString()
+                };
+
+                // Lưu đơn hàng vào localStorage
+                const orders = JSON.parse(localStorage.getItem('orders')) || [];
+                orders.push(order);
+                localStorage.setItem('orders', JSON.stringify(orders));
+
+                // Xóa giỏ hàng
+                localStorage.removeItem('cart');
+
+                // Chuyển hướng đến trang xác nhận
+                window.location.href = 'xacnhandonhang.html';
+            }
+        }
+    </script>
+</body>
+</html> 
