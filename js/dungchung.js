@@ -540,17 +540,30 @@ function addProduct(p, ele, returnString) {
 
 // Thêm topnav vào trang
 function addTopNav() {
+    var currentUser = getCurrentUser();
     var topnav = document.createElement('div');
     topnav.className = 'topnav';
+    
+    // Nếu chưa đăng nhập, hiển thị nút đăng nhập nhân viên
+    var accountHtml = !currentUser ? 
+        `<div class="account">
+            <a href="dangnhap.html"><i class="fa fa-user"></i> Đăng nhập nhân viên</a>
+        </div>` :
+        `<div class="account">
+            <a onclick="checkTaiKhoan()">
+                <i class="fa fa-user"></i> 
+                <span class="hide-if-logged-in"> Tài khoản </span>
+                <span class="show-if-logged-in"> ${currentUser.username} </span>
+            </a>
+        </div>`;
+
     topnav.innerHTML = `
         <div class="container">
             <div class="contact">
                 <a href="tel:+84987654321"><i class="fa fa-phone"></i> +84 987 654 321</a>
                 <a href="mailto:contact@thegioididong.com"><i class="fa fa-envelope"></i> contact@thegioididong.com</a>
             </div>
-            <div class="account">
-                <a href="dangnhap.html"><i class="fa fa-user"></i> Đăng nhập nhân viên</a>
-            </div>
+            ${accountHtml}
         </div>
     `;
     document.body.insertBefore(topnav, document.body.firstChild);
