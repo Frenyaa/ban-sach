@@ -559,6 +559,23 @@ function addTopNav() {
 
     topnav.innerHTML = `
         <div class="container">
+            <div class="menu">
+                <a href="index.html" class="home" title="Trang chủ">
+                    <i class="fa fa-home"></i> Trang chủ
+                </a>
+                <a href="#" class="news" title="Tin tức">
+                    <i class="fa fa-newspaper-o"></i> Tin tức
+                </a>
+                <a href="#" class="promotion" title="Khuyến mãi">
+                    <i class="fa fa-gift"></i> Khuyến mãi
+                </a>
+                <a href="#" class="intro" title="Giới thiệu">
+                    <i class="fa fa-info-circle"></i> Giới thiệu
+                </a>
+                <a href="#" class="contact" title="Liên hệ">
+                    <i class="fa fa-phone"></i> Liên hệ
+                </a>
+            </div>
             <div class="contact">
                 <a href="tel:+84987654321"><i class="fa fa-phone"></i> +84 987 654 321</a>
                 <a href="mailto:contact@thegioididong.com"><i class="fa fa-envelope"></i> contact@thegioididong.com</a>
