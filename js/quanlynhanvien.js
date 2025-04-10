@@ -258,7 +258,84 @@ window.onload = function() {
 // Hàm load dữ liệu đơn hàng
 function loadDonHang() {
     const donhangPanel = document.getElementById('donhang');
-    // TODO: Load dữ liệu đơn hàng từ localStorage hoặc API
+    const orders = getListOrders();
+    
+    let html = `
+        <h2>Quản lý đơn hàng</h2>
+        <table class="table-donhang">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Sản phẩm</th>
+                    <th>Giá</th>
+                    <th>Số lượng</th>
+                    <th>Thành tiền</th>
+                    <th>Thời gian</th>
+                    <th>Trạng thái</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
+
+    if (orders && orders.length > 0) {
+        orders.forEach((order, index) => {
+            html += `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${order.sanpham}</td>
+                    <td>${order.gia}</td>
+                    <td>${order.soluong}</td>
+                    <td>${order.thanhtien}</td>
+                    <td>${order.thoigian}</td>
+                    <td>${order.trangthai || 'Đang chờ xử lý'}</td>
+                    <td>
+                        ${order.trangthai ? '' : 
+                        `<button onclick="xuLyDonHang(${index})" class="btn-xuly">
+                            Xử lý đơn hàng
+                        </button>`
+                        }
+                    </td>
+                </tr>
+            `;
+        });
+    } else {
+        html += `
+            <tr>
+                <td colspan="8">Không có đơn hàng nào</td>
+            </tr>
+        `;
+    }
+
+    html += `
+            </tbody>
+        </table>
+    `;
+
+    donhangPanel.innerHTML = html;
+}
+
+// Hàm xử lý đơn hàng
+function xuLyDonHang(index) {
+    const orders = getListOrders();
+    if (orders && orders[index]) {
+        if (confirm('Xác nhận xử lý đơn hàng này?')) {
+            orders[index].trangthai = 'Đã xử lý';
+            setListOrders(orders);
+            loadDonHang(); // Tải lại danh sách đơn hàng
+            alert('Đã xử lý đơn hàng thành công!');
+        }
+    }
+}
+
+// Hàm lấy danh sách đơn hàng từ localStorage
+function getListOrders() {
+    return JSON.parse(localStorage.getItem('ListOrders')) || [];
+}
+
+// Hàm lưu danh sách đơn hàng vào localStorage
+function setListOrders(orders) {
+    localStorage.setItem('ListOrders', JSON.stringify(orders));
 }
 
 // Hàm load dữ liệu sản phẩm

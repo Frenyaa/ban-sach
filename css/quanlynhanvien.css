@@ -78,4 +78,40 @@
     margin-bottom: 1.5rem;
     color: #333;
     font-size: 1.5rem;
+}
+
+.table-donhang {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.table-donhang th,
+.table-donhang td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.table-donhang th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+}
+
+.table-donhang tr:hover {
+    background-color: #f9f9f9;
+}
+
+.btn-xuly {
+    padding: 0.5rem 1rem;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.btn-xuly:hover {
+    background-color: #45a049;
 } 
