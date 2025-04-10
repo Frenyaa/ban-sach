@@ -35,7 +35,12 @@
 	<section style="min-height: 85vh">
 		<script> addHeader(); </script>
 
-		<table class="listSanPham" > </table>
+		<table class="listSanPham"></table>
+		
+		<div class="cart-summary" style="text-align: right; margin: 20px;">
+			<h3>Tổng tiền: <span id="totalAmount">0</span> VNĐ</h3>
+			<button class="checkout-btn" onclick="checkout()">Thanh toán</button>
+		</div>
 		
 	</section> <!-- End Section -->
 

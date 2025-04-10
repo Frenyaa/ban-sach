@@ -3,6 +3,11 @@ var adminInfo = [{
     "pass": "adadad"
 }];
 
+var staffInfo = [{
+    "username": "staff",
+    "pass": "staff123"
+}];
+
 function getListAdmin() {
     return JSON.parse(window.localStorage.getItem('ListAdmin'));
 }
@@ -11,12 +16,20 @@ function setListAdmin(l) {
     window.localStorage.setItem('ListAdmin', JSON.stringify(l));
 }
 
+function getListStaff() {
+    return JSON.parse(window.localStorage.getItem('ListStaff')) || staffInfo;
+}
+
+function setListStaff(l) {
+    window.localStorage.setItem('ListStaff', JSON.stringify(l));
+}
 
 // Hàm khởi tạo, tất cả các trang đều cần
 function khoiTao() {
     // get data từ localstorage
     list_products = getListProducts() || list_products;
     adminInfo = getListAdmin() || adminInfo;
+    staffInfo = getListStaff() || staffInfo;
 
     setupEventTaiKhoan();
     capNhat_ThongTin_CurrentUser();
@@ -212,6 +225,16 @@ function logIn(form) {
             alert('Xin chào admin .. ');
             window.localStorage.setItem('admin', true);
             window.location.assign('admin.html');
+            return false;
+        }
+    }
+
+    // Đăng nhập vào nhân viên
+    for (var staff of staffInfo) {
+        if (equalUser(newUser, staff)) {
+            alert('Xin chào nhân viên .. ');
+            window.localStorage.setItem('staff', true);
+            window.location.assign('quanlynhanvien.html');
             return false;
         }
     }
@@ -517,26 +540,22 @@ function addProduct(p, ele, returnString) {
 
 // Thêm topnav vào trang
 function addTopNav() {
-    document.write(`    
-	<div class="top-nav group">
-        <section>
-            <div class="social-top-nav">
-                <a class="fa fa-facebook"></a>
-                <a class="fa fa-twitter"></a>
-                <a class="fa fa-google"></a>
-                <a class="fa fa-youtube"></a>
-            </div> <!-- End Social Topnav -->
-
-            <ul class="top-nav-quicklink flexContain">
-                <li><a href="index.html"><i class="fa fa-home"></i> Trang chủ</a></li>
-                <li><a href="tintuc.html"><i class="fa fa-newspaper-o"></i> Tin tức</a></li>
-                <li><a href="tuyendung.html"><i class="fa fa-handshake-o"></i> Tuyển dụng</a></li>
-                <li><a href="gioithieu.html"><i class="fa fa-info-circle"></i> Giới thiệu</a></li>
-                <li><a href="trungtambaohanh.html"><i class="fa fa-wrench"></i> Bảo hành</a></li>
-                <li><a href="lienhe.html"><i class="fa fa-phone"></i> Liên hệ</a></li>
-            </ul> <!-- End Quick link -->
-        </section><!-- End Section -->
-    </div><!-- End Top Nav  -->`);
+    var topnav = document.createElement('div');
+    topnav.className = 'topnav';
+    topnav.innerHTML = `
+        <div class="container">
+            <div class="contact">
+                <a href="tel:+84987654321"><i class="fa fa-phone"></i> +84 987 654 321</a>
+                <a href="mailto:contact@thegioididong.com"><i class="fa fa-envelope"></i> contact@thegioididong.com</a>
+            </div>
+            <div class="account">
+                <a href="dangnhapnhanvien.html"><i class="fa fa-user"></i> Đăng nhập nhân viên</a>
+                <a href="#" onclick="showTaiKhoan(true)"><i class="fa fa-user"></i> Tài khoản</a>
+                <a href="giohang.html"><i class="fa fa-shopping-cart"></i> Giỏ hàng <span class="cart-number">0</span></a>
+            </div>
+        </div>
+    `;
+    document.body.insertBefore(topnav, document.body.firstChild);
 }
 
 // Thêm header

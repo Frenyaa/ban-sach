@@ -11,6 +11,8 @@ window.onload = function () {
 
 	currentuser = getCurrentUser();
 	addProductToTable(currentuser);
+
+	updateTotal();
 }
 
 function addProductToTable(user) {
@@ -190,4 +192,29 @@ function capNhatMoiThu() { // Mọi thứ
 
 	// Cập nhật trên header
 	capNhat_ThongTin_CurrentUser();
+}
+
+// Cập nhật tổng tiền
+function updateTotal() {
+    let total = 0;
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.forEach(item => {
+        total += item.price * item.quantity;
+    });
+    document.getElementById('totalAmount').textContent = total.toLocaleString();
+}
+
+// Xử lý thanh toán
+function checkout() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    if (cart.length === 0) {
+        alert('Giỏ hàng của bạn đang trống!');
+        return;
+    }
+
+    // Lưu giỏ hàng vào localStorage để sử dụng trong trang thanh toán
+    localStorage.setItem('cart', JSON.stringify(cart));
+    
+    // Chuyển hướng đến trang thanh toán
+    window.location.href = 'thanhtoan.html';
 }
