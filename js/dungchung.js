@@ -547,7 +547,7 @@ function addTopNav() {
     // Nếu chưa đăng nhập, hiển thị nút đăng nhập nhân viên
     var accountHtml = !currentUser ? 
         `<div class="account">
-            <a href="dangnhap.html"><i class="fa fa-user"></i> Đăng nhập nhân viên</a>
+            <a href="dangnhapnhanvien.html"><i class="fa fa-user"></i> Đăng nhập nhân viên</a>
         </div>` :
         `<div class="account">
             <a onclick="checkTaiKhoan()">
