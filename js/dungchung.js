@@ -234,7 +234,7 @@ function logIn(form) {
         if (equalUser(newUser, staff)) {
             alert('Xin chào nhân viên .. ');
             window.localStorage.setItem('staff', true);
-            window.location.assign('quanlynhanvien.html');
+            window.location.assign('dangnhapnhanvien.html');
             return false;
         }
     }
