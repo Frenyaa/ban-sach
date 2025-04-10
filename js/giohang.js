@@ -91,15 +91,17 @@ function addProductToTable(user) {
 
 	s += `
 			<tr style="font-weight:bold; text-align:center">
-				<td colspan="4">TỔNG TIỀN: </td>
+				<td colspan="5">TỔNG TIỀN: </td>
 				<td class="alignRight">` + numToString(totalPrice) + ` ₫</td>
-				<td class="thanhtoan" onclick="thanhToan()"> Thanh Toán </td>
 				<td class="xoaHet" onclick="xoaHet()"> Xóa hết </td>
 			</tr>
 		</tbody>
 	`;
 
 	table.innerHTML = s;
+	
+	// Cập nhật tổng tiền ở phần summary
+	document.getElementById('totalAmount').innerHTML = numToString(totalPrice);
 }
 
 function xoaSanPhamTrongGioHang(i) {
@@ -217,4 +219,23 @@ function checkout() {
     
     // Chuyển hướng đến trang thanh toán
     window.location.href = 'thanhtoan.html';
+}
+
+function capNhatTongTien() {
+    var tongtien = 0;
+    var cartItems = document.getElementsByClassName('cart-item');
+    
+    for (var i = 0; i < cartItems.length; i++) {
+        var item = cartItems[i];
+        var soluong = parseInt(item.getElementsByClassName('quantity')[0].value);
+        var gia = item.getElementsByClassName('price')[0].innerText;
+        gia = parseInt(gia.replace(/[^0-9]/g, ''));
+        tongtien += soluong * gia;
+    }
+    
+    document.getElementById('tongtien').innerText = formatNumber(tongtien) + ' ₫';
+}
+
+function formatNumber(num) {
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 }

@@ -37,9 +37,12 @@
 
 		<table class="listSanPham"></table>
 		
-		<div class="cart-summary" style="text-align: right; margin: 20px;">
-			<h3>Tổng tiền: <span id="totalAmount">0</span> VNĐ</h3>
-			<button class="checkout-btn" onclick="checkout()">Thanh toán</button>
+		<div class="cart-summary">
+			<div class="summary-info">
+				<h3>Tổng tiền:</h3>
+				<h3 id="tongtien">0 ₫</h3>
+			</div>
+			<button class="checkout-btn" onclick="thanhToan()">Thanh toán</button>
 		</div>
 		
 	</section> <!-- End Section -->
