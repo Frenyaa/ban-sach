@@ -212,4 +212,63 @@ function updateOrderStatus(id) {
         localStorage.setItem('orders', JSON.stringify(orders));
         loadOrders();
     }
+}
+
+// Hàm đăng xuất cho nhân viên
+function logOutStaff() {
+    if (window.confirm('Bạn có chắc muốn đăng xuất?')) {
+        window.localStorage.removeItem('staff');
+        window.location.assign('index.html');
+    }
+}
+
+// Hàm hiển thị tab được chọn
+function showTab(tabId) {
+    // Ẩn tất cả các tab
+    document.querySelectorAll('.tab-panel').forEach(tab => {
+        tab.classList.remove('active');
+    });
+
+    // Hiển thị tab được chọn
+    document.getElementById(tabId).classList.add('active');
+
+    // Lưu tab hiện tại vào localStorage
+    localStorage.setItem('currentTab', tabId);
+}
+
+// Khi trang được tải
+window.onload = function() {
+    // Kiểm tra quyền truy cập
+    if (!window.localStorage.getItem('staff')) {
+        alert('Bạn không có quyền truy cập vào trang này');
+        window.location.assign('index.html');
+        return;
+    }
+
+    // Khôi phục tab đã chọn trước đó
+    const currentTab = localStorage.getItem('currentTab') || 'donhang';
+    showTab(currentTab);
+
+    // Load dữ liệu cho các tab
+    loadDonHang();
+    loadSanPham();
+    loadKhachHang();
+}
+
+// Hàm load dữ liệu đơn hàng
+function loadDonHang() {
+    const donhangPanel = document.getElementById('donhang');
+    // TODO: Load dữ liệu đơn hàng từ localStorage hoặc API
+}
+
+// Hàm load dữ liệu sản phẩm
+function loadSanPham() {
+    const sanphamPanel = document.getElementById('sanpham');
+    // TODO: Load dữ liệu sản phẩm từ localStorage hoặc API
+}
+
+// Hàm load dữ liệu khách hàng
+function loadKhachHang() {
+    const khachhangPanel = document.getElementById('khachhang');
+    // TODO: Load dữ liệu khách hàng từ localStorage hoặc API
 } 
