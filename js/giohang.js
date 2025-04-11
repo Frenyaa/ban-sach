@@ -232,9 +232,35 @@ function capNhatTongTien() {
         tongtien += soluong * gia;
     }
     
+    // Cập nhật tổng tiền ở cả hai nơi
     document.getElementById('tongtien').innerText = formatNumber(tongtien) + ' ₫';
+    var tongTienElement = document.querySelector('.cart-summary h3#tongtien');
+    if (tongTienElement) {
+        tongTienElement.innerText = formatNumber(tongtien) + ' ₫';
+    }
 }
 
 function formatNumber(num) {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+}
+
+// Cập nhật số lượng và tổng tiền khi thay đổi số lượng
+function updateQuantity(productId, change) {
+    var quantityInput = document.querySelector(`.cart-item[data-id="${productId}"] .quantity`);
+    var currentQuantity = parseInt(quantityInput.value);
+    var newQuantity = currentQuantity + change;
+    
+    if (newQuantity > 0) {
+        quantityInput.value = newQuantity;
+        capNhatTongTien();
+    }
+}
+
+// Xóa sản phẩm khỏi giỏ hàng
+function removeFromCart(productId) {
+    var cartItem = document.querySelector(`.cart-item[data-id="${productId}"]`);
+    if (cartItem && confirm('Bạn có chắc muốn xóa sản phẩm này khỏi giỏ hàng?')) {
+        cartItem.remove();
+        capNhatTongTien();
+    }
 }
