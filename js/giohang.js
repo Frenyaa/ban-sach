@@ -112,27 +112,41 @@ function xoaSanPhamTrongGioHang(i) {
 }
 
 function thanhToan() {
-	var c_user = getCurrentUser();
-	if(c_user.off) {
+    var c_user = getCurrentUser();
+    if(!c_user) {
+        alert('Bạn cần đăng nhập để thanh toán!');
+        showTaiKhoan(true);
+        return;
+    }
+    
+    if(c_user.off) {
         alert('Tài khoản của bạn hiện đang bị khóa nên không thể mua hàng!');
         addAlertBox('Tài khoản của bạn đã bị khóa bởi Admin.', '#aa0000', '#fff', 10000);
         return;
-	}
-	
-	if (!currentuser.products.length) {
-		addAlertBox('Không có mặt hàng nào cần thanh toán !!', '#ffb400', '#fff', 2000);
-		return;
-	}
-	if (window.confirm('Thanh toán giỏ hàng ?')) {
-		currentuser.donhang.push({
-			"sp": currentuser.products,
-			"ngaymua": new Date(),
-			"tinhTrang": 'Đang chờ xử lý'
-		});
-		currentuser.products = [];
-		capNhatMoiThu();
-		addAlertBox('Các sản phẩm đã được gửi vào đơn hàng và chờ xử lý.', '#17c671', '#fff', 4000);
-	}
+    }
+    
+    if (!currentuser.products.length) {
+        addAlertBox('Không có mặt hàng nào cần thanh toán!', '#ffb400', '#fff', 2000);
+        return;
+    }
+
+    // Chuyển thông tin giỏ hàng sang định dạng phù hợp cho trang thanh toán
+    var cartItems = currentuser.products.map(function(product) {
+        var p = timKiemTheoMa(list_products, product.ma);
+        return {
+            ma: product.ma,
+            name: p.name,
+            price: p.promo.name == 'giareonline' ? p.promo.value : p.price,
+            quantity: product.soluong,
+            img: p.img
+        };
+    });
+
+    // Lưu thông tin giỏ hàng vào localStorage
+    localStorage.setItem('cart', JSON.stringify(cartItems));
+    
+    // Chuyển hướng đến trang thanh toán
+    window.location.href = 'thanhtoan.html';
 }
 
 function xoaHet() {
@@ -204,21 +218,6 @@ function updateTotal() {
         total += item.price * item.quantity;
     });
     document.getElementById('totalAmount').textContent = total.toLocaleString();
-}
-
-// Xử lý thanh toán
-function checkout() {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    if (cart.length === 0) {
-        alert('Giỏ hàng của bạn đang trống!');
-        return;
-    }
-
-    // Lưu giỏ hàng vào localStorage để sử dụng trong trang thanh toán
-    localStorage.setItem('cart', JSON.stringify(cart));
-    
-    // Chuyển hướng đến trang thanh toán
-    window.location.href = 'thanhtoan.html';
 }
 
 function capNhatTongTien() {

@@ -172,3 +172,42 @@
 .checkout-btn:hover {
     background-color: #45a049;
 }
+
+.delete-order {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    display: inline-block;
+    margin: 5px;
+}
+
+.delete-order:hover {
+    background-color: #c82333;
+    transform: scale(1.05);
+}
+
+/* Thêm style cho cột trạng thái */
+.listSanPham td[style*="text-align: center"] {
+    font-weight: bold;
+}
+
+/* Style cho trạng thái "Đang chờ xử lý" */
+.listSanPham td[style*="text-align: center"]:contains('Đang chờ xử lý') {
+    color: #ffc107;
+}
+
+/* Style cho trạng thái "Đã giao hàng" */
+.listSanPham td[style*="text-align: center"]:contains('Đã giao hàng') {
+    color: #28a745;
+}
+
+/* Style cho trạng thái "Đã hủy" */
+.listSanPham td[style*="text-align: center"]:contains('Đã hủy') {
+    color: #dc3545;
+}

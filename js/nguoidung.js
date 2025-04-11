@@ -237,7 +237,7 @@ function addDonHang(dh) {
     var s = `
             <table class="listSanPham">
                 <tr> 
-                    <th colspan="6">
+                    <th colspan="7">
                         <h3 style="text-align:center;"> Đơn hàng ngày: ` + new Date(dh.ngaymua).toLocaleString() + `</h3> 
                     </th>
                 </tr>
@@ -247,7 +247,8 @@ function addDonHang(dh) {
                     <th>Giá</th>
                     <th>Số lượng</th>
                     <th>Thành tiền</th>
-                    <th>Thời gian thêm vào giỏ</th> 
+                    <th>Thời gian thêm vào giỏ</th>
+                    <th>Trạng thái</th>
                 </tr>`;
 
     var totalPrice = 0;
@@ -274,6 +275,7 @@ function addDonHang(dh) {
                     </td>
                     <td class="alignRight">` + numToString(thanhtien) + ` ₫</td>
                     <td style="text-align: center" >` + thoigian + `</td>
+                    <td style="text-align: center">` + dh.tinhTrang + `</td>
                 </tr>
             `;
         totalPrice += thanhtien;
@@ -285,10 +287,36 @@ function addDonHang(dh) {
                 <tr style="font-weight:bold; text-align:center; height: 4em;">
                     <td colspan="4">TỔNG TIỀN: </td>
                     <td class="alignRight">` + numToString(totalPrice) + ` ₫</td>
-                    <td > ` + dh.tinhTrang + ` </td>
+                    <td colspan="2">
+                        ` + (dh.tinhTrang === 'Đang chờ xử lý' ? 
+                            `<button onclick="xoaDonHang('` + dh.ngaymua + `')" class="delete-order">Hủy đơn hàng</button>` : 
+                            '') + `
+                    </td>
                 </tr>
             </table>
             <hr>
         `;
     div.innerHTML += s;
+}
+
+// Hàm xóa đơn hàng
+function xoaDonHang(ngayMua) {
+    if (window.confirm('Bạn có chắc muốn hủy đơn hàng này?')) {
+        // Tìm và xóa đơn hàng trong danh sách đơn hàng của người dùng
+        var user = getCurrentUser();
+        var foundIndex = user.donhang.findIndex(function(dh) {
+            return dh.ngaymua.toString() === ngayMua;
+        });
+        
+        if (foundIndex !== -1) {
+            user.donhang.splice(foundIndex, 1);
+            
+            // Cập nhật localStorage
+            setCurrentUser(user);
+            updateListUser(user);
+            
+            // Làm mới trang
+            window.location.reload();
+        }
+    }
 }
