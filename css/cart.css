@@ -19,15 +19,17 @@
 }
 
 .cart-table th {
-    padding: 15px;
+    padding: 12px;
     text-align: left;
     font-weight: 600;
+    font-size: 1.1em;
 }
 
 .cart-table td {
-    padding: 15px;
+    padding: 12px;
     border-bottom: 1px solid #eee;
     vertical-align: middle;
+    font-size: 1.05em;
 }
 
 .cart-item {
@@ -41,12 +43,12 @@
 .product-info {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
 }
 
 .product-image {
-    width: 80px;
-    height: 120px;
+    width: 60px;
+    height: 90px;
     object-fit: cover;
     border-radius: 4px;
 }
@@ -55,6 +57,7 @@
     color: #333;
     text-decoration: none;
     font-weight: 500;
+    font-size: 1.1em;
 }
 
 .product-name:hover {
@@ -70,11 +73,12 @@
 .quantity-controls button {
     background-color: #f0f0f0;
     border: none;
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
+    font-size: 1.1em;
 }
 
 .quantity-controls button:hover {
@@ -82,22 +86,25 @@
 }
 
 .quantity-controls input {
-    width: 50px;
-    height: 30px;
+    width: 45px;
+    height: 35px;
     text-align: center;
     border: 1px solid #ddd;
     border-radius: 4px;
+    font-size: 1.05em;
 }
 
 .price {
     font-weight: 600;
     color: #e53935;
+    font-size: 1.1em;
 }
 
 .delete-btn {
     color: #999;
     cursor: pointer;
     transition: color 0.3s;
+    font-size: 1.2em;
 }
 
 .delete-btn:hover {
@@ -120,7 +127,7 @@
 }
 
 .summary-info h3 {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     color: #333;
     margin: 0;
 }
@@ -128,6 +135,7 @@
 #tongtien {
     color: #e53935;
     font-weight: 600;
+    font-size: 1.4rem;
 }
 
 .checkout-btn {
@@ -137,7 +145,7 @@
     color: white;
     border: none;
     border-radius: 4px;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.3s;
@@ -150,12 +158,13 @@
 /* Responsive */
 @media (max-width: 768px) {
     .product-image {
-        width: 60px;
-        height: 90px;
+        width: 50px;
+        height: 75px;
     }
     
     .cart-table th,
     .cart-table td {
         padding: 10px;
+        font-size: 1em;
     }
 } 
