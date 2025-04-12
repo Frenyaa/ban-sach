@@ -311,6 +311,8 @@
                 
                 // Xóa sản phẩm trong giỏ hàng của người dùng
                 currentUser.products = [];
+                
+                // Cập nhật thông tin người dùng trong localStorage
                 localStorage.setItem('currentUser', JSON.stringify(currentUser));
 
                 // Cập nhật danh sách user
@@ -320,13 +322,16 @@
                     listUsers[userIndex] = currentUser;
                     localStorage.setItem('ListUser', JSON.stringify(listUsers));
                 }
+
+                // Xóa giỏ hàng
+                localStorage.removeItem('cart');
+
+                // Chuyển hướng đến trang xác nhận
+                window.location.href = 'xacnhandonhang.html';
+            } else {
+                alert('Có lỗi xảy ra. Vui lòng đăng nhập lại!');
+                window.location.href = 'index.html';
             }
-
-            // Xóa giỏ hàng
-            localStorage.removeItem('cart');
-
-            // Chuyển hướng đến trang xác nhận
-            window.location.href = 'xacnhandonhang.html';
         }
     </script>
 </body>
