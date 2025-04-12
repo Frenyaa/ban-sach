@@ -2,152 +2,242 @@
 let books = JSON.parse(localStorage.getItem('books')) || [];
 let orders = JSON.parse(localStorage.getItem('orders')) || [];
 
-// Hiển thị form thêm sách mới
-function showAddBookForm() {
-    const form = `
-        <div class="form-group">
-            <label>Tên sách:</label>
-            <input type="text" id="bookName" required>
-        </div>
-        <div class="form-group">
-            <label>Giá:</label>
-            <input type="number" id="bookPrice" required>
-        </div>
-        <div class="form-group">
-            <label>Số lượng:</label>
-            <input type="number" id="bookQuantity" required>
-        </div>
-        <div class="form-group">
-            <label>Hình ảnh:</label>
-            <input type="text" id="bookImage" placeholder="URL hình ảnh">
-        </div>
-        <div class="form-group">
-            <label>Mô tả:</label>
-            <textarea id="bookDescription" rows="4"></textarea>
-        </div>
-        <button class="btn btn-primary" onclick="addBook()">Thêm sách</button>
-        <button class="btn btn-danger" onclick="cancelAddBook()">Hủy</button>
-    `;
-    
-    document.getElementById('books').innerHTML = form;
-}
-
-// Hủy thêm sách
-function cancelAddBook() {
-    loadBooks();
-}
-
-// Thêm sách mới
-function addBook() {
-    const bookName = document.getElementById('bookName').value;
-    const bookPrice = document.getElementById('bookPrice').value;
-    const bookQuantity = document.getElementById('bookQuantity').value;
-    const bookImage = document.getElementById('bookImage').value;
-    const bookDescription = document.getElementById('bookDescription').value;
-
-    if (!bookName || !bookPrice || !bookQuantity) {
-        alert('Vui lòng điền đầy đủ thông tin');
+// Kiểm tra đăng nhập
+window.onload = function() {
+    const staff = JSON.parse(localStorage.getItem('staff'));
+    if (!staff) {
+        window.location.href = 'dangnhapnhanvien.html';
         return;
     }
+    
+    // Hiển thị tên nhân viên
+    document.getElementById('tenNhanVien').textContent = staff.name;
+    
+    // Load dữ liệu cho tab hiện tại
+    const currentTab = localStorage.getItem('currentTab') || 'donhang';
+    showTab(currentTab);
+};
 
-    const newBook = {
-        id: Date.now(),
-        name: bookName,
-        price: bookPrice,
-        quantity: bookQuantity,
-        image: bookImage,
-        description: bookDescription
-    };
-
-    books.push(newBook);
-    localStorage.setItem('books', JSON.stringify(books));
-    loadBooks();
+// Chuyển đổi tab
+function showTab(tabName) {
+    // Lưu tab hiện tại
+    localStorage.setItem('currentTab', tabName);
+    
+    // Ẩn tất cả các tab
+    const tabs = document.getElementsByClassName('tab-panel');
+    for (let tab of tabs) {
+        tab.classList.remove('active');
+    }
+    
+    // Hiển thị tab được chọn
+    document.getElementById(tabName).classList.add('active');
+    
+    // Load dữ liệu cho tab
+    switch(tabName) {
+        case 'donhang':
+            loadDonHang();
+            break;
+        case 'sanpham':
+            loadSanPham();
+            break;
+        case 'khachhang':
+            loadKhachHang();
+            break;
+    }
 }
 
-// Tải danh sách sách
-function loadBooks() {
-    const bookList = document.getElementById('bookList');
-    bookList.innerHTML = '';
+// Xử lý đăng xuất
+function logOutStaff() {
+    if (confirm('Bạn có chắc muốn đăng xuất?')) {
+        localStorage.removeItem('staff');
+        window.location.href = 'dangnhapnhanvien.html';
+    }
+}
 
-    books.forEach(book => {
-        const row = `
+// Quản lý sách
+function loadSanPham() {
+    const bookList = document.getElementById('bookList');
+    const books = JSON.parse(localStorage.getItem('books')) || [];
+    
+    let html = '';
+    books.forEach((book, index) => {
+        html += `
             <tr>
-                <td>${book.id}</td>
+                <td><img src="${book.img}" alt="${book.name}" style="width: 50px; height: 75px; object-fit: cover;"></td>
                 <td>${book.name}</td>
-                <td>${book.price} VNĐ</td>
+                <td>${book.author}</td>
+                <td>${book.price.toLocaleString()}đ</td>
                 <td>${book.quantity}</td>
                 <td>
-                    <button class="btn btn-primary" onclick="editBook(${book.id})">Sửa</button>
-                    <button class="btn btn-danger" onclick="deleteBook(${book.id})">Xóa</button>
+                    <div class="action-buttons">
+                        <button class="edit-button" onclick="editBook(${index})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="delete-button" onclick="deleteBook(${index})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
                 </td>
             </tr>
         `;
-        bookList.innerHTML += row;
     });
-}
-
-// Sửa thông tin sách
-function editBook(id) {
-    const book = books.find(b => b.id === id);
-    if (!book) return;
-
-    const form = `
-        <div class="form-group">
-            <label>Tên sách:</label>
-            <input type="text" id="editBookName" value="${book.name}" required>
-        </div>
-        <div class="form-group">
-            <label>Giá:</label>
-            <input type="number" id="editBookPrice" value="${book.price}" required>
-        </div>
-        <div class="form-group">
-            <label>Số lượng:</label>
-            <input type="number" id="editBookQuantity" value="${book.quantity}" required>
-        </div>
-        <div class="form-group">
-            <label>Hình ảnh:</label>
-            <input type="text" id="editBookImage" value="${book.image || ''}">
-        </div>
-        <div class="form-group">
-            <label>Mô tả:</label>
-            <textarea id="editBookDescription" rows="4">${book.description || ''}</textarea>
-        </div>
-        <button class="btn btn-primary" onclick="saveEditBook(${id})">Lưu</button>
-        <button class="btn btn-danger" onclick="cancelEditBook()">Hủy</button>
-    `;
     
-    document.getElementById('books').innerHTML = form;
+    bookList.innerHTML = html;
 }
 
-// Lưu thông tin sách đã sửa
-function saveEditBook(id) {
-    const bookIndex = books.findIndex(b => b.id === id);
-    if (bookIndex === -1) return;
+function showAddBookForm() {
+    const modal = document.getElementById('bookForm');
+    modal.style.display = 'block';
+    
+    // Reset form
+    document.getElementById('addBookForm').reset();
+}
 
-    books[bookIndex] = {
-        ...books[bookIndex],
-        name: document.getElementById('editBookName').value,
-        price: document.getElementById('editBookPrice').value,
-        quantity: document.getElementById('editBookQuantity').value,
-        image: document.getElementById('editBookImage').value,
-        description: document.getElementById('editBookDescription').value
+function saveBook(form) {
+    event.preventDefault();
+    
+    const books = JSON.parse(localStorage.getItem('books')) || [];
+    const newBook = {
+        name: form.name.value,
+        author: form.author.value,
+        price: Number(form.price.value),
+        quantity: Number(form.quantity.value),
+        description: form.description.value,
+        img: form.image.files[0] ? URL.createObjectURL(form.image.files[0]) : 'img/default-book.jpg'
     };
-
+    
+    books.push(newBook);
     localStorage.setItem('books', JSON.stringify(books));
-    loadBooks();
+    
+    // Đóng form và reload danh sách
+    document.getElementById('bookForm').style.display = 'none';
+    loadSanPham();
+    
+    return false;
 }
 
-// Hủy sửa sách
-function cancelEditBook() {
-    loadBooks();
+function editBook(index) {
+    const books = JSON.parse(localStorage.getItem('books')) || [];
+    const book = books[index];
+    
+    // Hiển thị form với dữ liệu hiện tại
+    const form = document.getElementById('addBookForm');
+    form.name.value = book.name;
+    form.author.value = book.author;
+    form.price.value = book.price;
+    form.quantity.value = book.quantity;
+    form.description.value = book.description || '';
+    
+    // Hiển thị modal
+    document.getElementById('bookForm').style.display = 'block';
 }
 
-// Xóa sách
-function deleteBook(id) {
-    if (confirm('Bạn có chắc chắn muốn xóa sách này?')) {
-        books = books.filter(book => book.id !== id);
+function deleteBook(index) {
+    if (confirm('Bạn có chắc muốn xóa sách này?')) {
+        const books = JSON.parse(localStorage.getItem('books')) || [];
+        books.splice(index, 1);
         localStorage.setItem('books', JSON.stringify(books));
-        loadBooks();
+        loadSanPham();
+    }
+}
+
+// Quản lý khách hàng
+function loadKhachHang() {
+    const customerList = document.getElementById('customerList');
+    const users = JSON.parse(localStorage.getItem('ListUser')) || [];
+    
+    let html = '';
+    users.forEach((user, index) => {
+        const totalOrders = user.donhang ? user.donhang.length : 0;
+        html += `
+            <tr>
+                <td>${index + 1}</td>
+                <td>${user.ho} ${user.ten}</td>
+                <td>${user.email}</td>
+                <td>${user.phone || 'Chưa cập nhật'}</td>
+                <td>${totalOrders}</td>
+                <td>
+                    <span class="status-badge ${user.off ? 'status-inactive' : 'status-active'}">
+                        ${user.off ? 'Đã khóa' : 'Đang hoạt động'}
+                    </span>
+                </td>
+                <td>
+                    <div class="action-buttons">
+                        <button class="edit-button" onclick="viewCustomerDetails(${index})">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="delete-button" onclick="toggleCustomerStatus(${index})">
+                            <i class="fas fa-${user.off ? 'lock-open' : 'lock'}"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `;
+    });
+    
+    customerList.innerHTML = html;
+}
+
+function toggleCustomerStatus(index) {
+    const users = JSON.parse(localStorage.getItem('ListUser')) || [];
+    const user = users[index];
+    
+    if (confirm(`Bạn có chắc muốn ${user.off ? 'mở khóa' : 'khóa'} tài khoản này?`)) {
+        user.off = !user.off;
+        localStorage.setItem('ListUser', JSON.stringify(users));
+        loadKhachHang();
+    }
+}
+
+function viewCustomerDetails(index) {
+    const users = JSON.parse(localStorage.getItem('ListUser')) || [];
+    const user = users[index];
+    
+    alert(`
+        Thông tin chi tiết:
+        Họ và tên: ${user.ho} ${user.ten}
+        Email: ${user.email}
+        Số điện thoại: ${user.phone || 'Chưa cập nhật'}
+        Tổng số đơn hàng: ${user.donhang ? user.donhang.length : 0}
+        Trạng thái: ${user.off ? 'Đã khóa' : 'Đang hoạt động'}
+    `);
+}
+
+// Tìm kiếm
+function searchBooks() {
+    const searchTerm = document.getElementById('searchBook').value.toLowerCase();
+    const books = JSON.parse(localStorage.getItem('books')) || [];
+    
+    const filteredBooks = books.filter(book => 
+        book.name.toLowerCase().includes(searchTerm) ||
+        book.author.toLowerCase().includes(searchTerm)
+    );
+    
+    displayFilteredBooks(filteredBooks);
+}
+
+function searchCustomers() {
+    const searchTerm = document.getElementById('searchCustomer').value.toLowerCase();
+    const users = JSON.parse(localStorage.getItem('ListUser')) || [];
+    
+    const filteredUsers = users.filter(user => 
+        `${user.ho} ${user.ten}`.toLowerCase().includes(searchTerm) ||
+        user.email.toLowerCase().includes(searchTerm)
+    );
+    
+    displayFilteredCustomers(filteredUsers);
+}
+
+// Đóng modal khi click vào nút close
+document.querySelector('.close').onclick = function() {
+    document.getElementById('bookForm').style.display = 'none';
+}
+
+// Đóng modal khi click bên ngoài
+window.onclick = function(event) {
+    const modal = document.getElementById('bookForm');
+    if (event.target == modal) {
+        modal.style.display = 'none';
     }
 }
 
@@ -212,47 +302,6 @@ function updateOrderStatus(id) {
         localStorage.setItem('orders', JSON.stringify(orders));
         loadOrders();
     }
-}
-
-// Hàm đăng xuất cho nhân viên
-function logOutStaff() {
-    if (window.confirm('Bạn có chắc muốn đăng xuất?')) {
-        window.localStorage.removeItem('staff');
-        window.location.assign('index.html');
-    }
-}
-
-// Hàm hiển thị tab được chọn
-function showTab(tabId) {
-    // Ẩn tất cả các tab
-    document.querySelectorAll('.tab-panel').forEach(tab => {
-        tab.classList.remove('active');
-    });
-
-    // Hiển thị tab được chọn
-    document.getElementById(tabId).classList.add('active');
-
-    // Lưu tab hiện tại vào localStorage
-    localStorage.setItem('currentTab', tabId);
-}
-
-// Khi trang được tải
-window.onload = function() {
-    // Kiểm tra quyền truy cập
-    if (!window.localStorage.getItem('staff')) {
-        alert('Bạn không có quyền truy cập vào trang này');
-        window.location.assign('index.html');
-        return;
-    }
-
-    // Khôi phục tab đã chọn trước đó
-    const currentTab = localStorage.getItem('currentTab') || 'donhang';
-    showTab(currentTab);
-
-    // Load dữ liệu cho các tab
-    loadDonHang();
-    loadSanPham();
-    loadKhachHang();
 }
 
 // Hàm load dữ liệu đơn hàng
@@ -336,12 +385,6 @@ function getListOrders() {
 // Hàm lưu danh sách đơn hàng vào localStorage
 function setListOrders(orders) {
     localStorage.setItem('ListOrders', JSON.stringify(orders));
-}
-
-// Hàm load dữ liệu sản phẩm
-function loadSanPham() {
-    const sanphamPanel = document.getElementById('sanpham');
-    // TODO: Load dữ liệu sản phẩm từ localStorage hoặc API
 }
 
 // Hàm load dữ liệu khách hàng

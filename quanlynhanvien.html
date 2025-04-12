@@ -10,7 +10,7 @@
     <link rel="shortcut icon" href="img/favicon.ico" />
 
     <!-- Load font awesome icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <!-- our files -->
     <!-- css -->
@@ -41,8 +41,9 @@
     <div class="header">
         <div class="content">
             <div class="nhanvien-info">
+                <span id="tenNhanVien"></span>
                 <a onclick="logOutStaff()" class="logout-button">
-                    <i class="fa fa-sign-out"></i>
+                    <i class="fas fa-sign-out-alt"></i>
                     Đăng xuất
                 </a>
             </div>
@@ -52,15 +53,15 @@
     <div class="quanly-content">
         <div class="menu">
             <div class="menu-item" onclick="showTab('donhang')">
-                <i class="fa fa-shopping-cart"></i>
+                <i class="fas fa-shopping-cart"></i>
                 Quản lý đơn hàng
             </div>
             <div class="menu-item" onclick="showTab('sanpham')">
-                <i class="fa fa-book"></i>
+                <i class="fas fa-book"></i>
                 Quản lý sách
             </div>
             <div class="menu-item" onclick="showTab('khachhang')">
-                <i class="fa fa-users"></i>
+                <i class="fas fa-users"></i>
                 Quản lý khách hàng
             </div>
         </div>
@@ -68,18 +69,105 @@
         <div class="tab-content">
             <div id="donhang" class="tab-panel active">
                 <h2>Quản lý đơn hàng</h2>
-                <!-- Nội dung quản lý đơn hàng sẽ được thêm bằng JavaScript -->
+                <div class="order-list">
+                    <!-- Nội dung đơn hàng sẽ được thêm bằng JavaScript -->
+                </div>
             </div>
 
             <div id="sanpham" class="tab-panel">
                 <h2>Quản lý sách</h2>
-                <!-- Nội dung quản lý sách sẽ được thêm bằng JavaScript -->
+                <div class="book-management">
+                    <div class="search-add">
+                        <div class="search-box">
+                            <input type="text" id="searchBook" placeholder="Tìm kiếm sách...">
+                            <button onclick="searchBooks()"><i class="fas fa-search"></i></button>
+                        </div>
+                        <button class="add-button" onclick="showAddBookForm()">
+                            <i class="fas fa-plus"></i> Thêm sách mới
+                        </button>
+                    </div>
+                    <div class="book-list">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Ảnh</th>
+                                    <th>Tên sách</th>
+                                    <th>Tác giả</th>
+                                    <th>Giá</th>
+                                    <th>Số lượng</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bookList">
+                                <!-- Danh sách sách sẽ được thêm bằng JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
 
             <div id="khachhang" class="tab-panel">
                 <h2>Quản lý khách hàng</h2>
-                <!-- Nội dung quản lý khách hàng sẽ được thêm bằng JavaScript -->
+                <div class="customer-management">
+                    <div class="search-box">
+                        <input type="text" id="searchCustomer" placeholder="Tìm kiếm khách hàng...">
+                        <button onclick="searchCustomers()"><i class="fas fa-search"></i></button>
+                    </div>
+                    <div class="customer-list">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Họ và tên</th>
+                                    <th>Email</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Tổng đơn hàng</th>
+                                    <th>Trạng thái</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="customerList">
+                                <!-- Danh sách khách hàng sẽ được thêm bằng JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Form thêm/sửa sách -->
+    <div id="bookForm" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Thêm sách mới</h3>
+            <form id="addBookForm" onsubmit="return saveBook(this)">
+                <div class="form-group">
+                    <label>Tên sách:</label>
+                    <input type="text" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label>Tác giả:</label>
+                    <input type="text" name="author" required>
+                </div>
+                <div class="form-group">
+                    <label>Giá:</label>
+                    <input type="number" name="price" required>
+                </div>
+                <div class="form-group">
+                    <label>Số lượng:</label>
+                    <input type="number" name="quantity" required>
+                </div>
+                <div class="form-group">
+                    <label>Ảnh:</label>
+                    <input type="file" name="image" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label>Mô tả:</label>
+                    <textarea name="description"></textarea>
+                </div>
+                <button type="submit">Lưu</button>
+            </form>
         </div>
     </div>
 
