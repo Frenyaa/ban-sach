@@ -162,10 +162,13 @@ function themVaoGioHang(masp, tensp) {
 
 // Hàm get set cho người dùng hiện tại đã đăng nhập
 function getCurrentUser() {
-    return JSON.parse(window.localStorage.getItem('CurrentUser')); // Lấy dữ liệu từ localstorage
+    const user = JSON.parse(window.localStorage.getItem('CurrentUser'));
+    console.log('Getting current user:', user);
+    return user;
 }
 
 function setCurrentUser(u) {
+    console.log('Setting current user:', u);
     window.localStorage.setItem('CurrentUser', JSON.stringify(u));
 }
 
@@ -366,16 +369,19 @@ function setupEventTaiKhoan() {
 
 // Cập nhật số lượng hàng trong giỏ hàng + Tên current user
 function capNhat_ThongTin_CurrentUser() {
-    var u = getCurrentUser();
-    if (u) {
-        // Cập nhật số lượng hàng vào header
-        document.getElementsByClassName('cart-number')[0].innerHTML = getTongSoLuongSanPhamTrongGioHang(u);
-        // Cập nhật tên người dùng
-        document.getElementsByClassName('member')[0]
-            .getElementsByTagName('a')[0].childNodes[2].nodeValue = ' ' + u.username;
-        // bỏ class hide của menu người dùng
-        document.getElementsByClassName('menuMember')[0]
-            .classList.remove('hide');
+    try {
+        const currentUser = getCurrentUser();
+        console.log('Updating current user info:', currentUser);
+        if (currentUser) {
+            document.getElementsByClassName('menuMember')[0].innerHTML = `
+                <a href="nguoidung.html">
+                    <div class="info">
+                        <span>` + currentUser.username + `</span>
+                    </div>
+                </a>`;
+        }
+    } catch (error) {
+        console.error('Error updating user info:', error);
     }
 }
 

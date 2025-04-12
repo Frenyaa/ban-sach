@@ -131,46 +131,54 @@ function xoaSanPhamTrongGioHang(i) {
 }
 
 function thanhToan() {
-    var currentuser = getCurrentUser();
-    if(!currentuser) {
-        alert('Bạn cần đăng nhập để thanh toán!');
-        showTaiKhoan(true);
-        return;
-    }
-    
-    if(currentuser.off) {
-        alert('Tài khoản của bạn hiện đang bị khóa nên không thể mua hàng!');
-        addAlertBox('Tài khoản của bạn đã bị khóa bởi Admin.', '#aa0000', '#fff', 10000);
-        return;
-    }
-    
-    if (!currentuser.products || !currentuser.products.length) {
-        addAlertBox('Không có mặt hàng nào cần thanh toán!', '#ffb400', '#fff', 2000);
-        return;
-    }
-
-    // Chuyển thông tin giỏ hàng sang định dạng phù hợp cho trang thanh toán
-    var cartItems = currentuser.products.map(function(product) {
-        var p = timKiemTheoMa(list_products, product.ma);
-        var price = p.promo.name == 'giareonline' ? p.promo.value : p.price;
-        // Chuyển đổi giá từ chuỗi sang số
-        if (typeof price === 'string') {
-            price = Number(price.replace(/[^\d]/g, '')); // Loại bỏ tất cả ký tự không phải số
+    try {
+        var currentuser = getCurrentUser();
+        console.log('Checking user for checkout:', currentuser);
+        
+        if(!currentuser) {
+            console.log('No user logged in, showing login prompt');
+            alert('Bạn cần đăng nhập để thanh toán!');
+            showTaiKhoan(true);
+            return;
         }
-        return {
-            ma: product.ma,
-            name: p.name,
-            price: price,
-            quantity: product.soluong,
-            img: p.img
-        };
-    });
+        
+        if(currentuser.off) {
+            console.log('User account is locked:', currentuser.username);
+            alert('Tài khoản của bạn hiện đang bị khóa nên không thể mua hàng!');
+            addAlertBox('Tài khoản của bạn đã bị khóa bởi Admin.', '#aa0000', '#fff', 10000);
+            return;
+        }
+        
+        if (!currentuser.products || !currentuser.products.length) {
+            console.log('Cart is empty for user:', currentuser.username);
+            addAlertBox('Không có mặt hàng nào cần thanh toán!', '#ffb400', '#fff', 2000);
+            return;
+        }
 
-    // Lưu thông tin giỏ hàng vào localStorage
-    localStorage.setItem('cart', JSON.stringify(cartItems));
-    
-    // Chuyển hướng đến trang thanh toán
-    window.location.href = 'thanhtoan.html';
+        // Chuyển thông tin giỏ hàng sang định dạng phù hợp cho trang thanh toán
+        var cartItems = currentuser.products.map(function(product) {
+            var p = timKiemTheoMa(list_products, product.ma);
+            var price = p.promo.name == 'giareonline' ? p.promo.value : p.price;
+            if (typeof price === 'string') {
+                price = Number(price.replace(/[^\d]/g, ''));
+            }
+            return {
+                ma: product.ma,
+                name: p.name,
+                price: price,
+                quantity: product.soluong,
+                img: p.img
+            };
+        });
+
+        console.log('Saving cart items to localStorage:', cartItems);
+        localStorage.setItem('cart', JSON.stringify(cartItems));
+        
+        window.location.href = 'thanhtoan.html';
+    } catch (error) {
+        console.error('Error during checkout process:', error);
+        alert('Có lỗi xảy ra trong quá trình thanh toán. Vui lòng thử lại!');
+    }
 }
 
 function xoaHet() {
