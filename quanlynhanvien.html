@@ -150,23 +150,53 @@
                     <label>Tác giả:</label>
                     <input type="text" name="author" required>
                 </div>
-                <div class="form-group">
-                    <label>Giá:</label>
-                    <input type="number" name="price" required>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Giá:</label>
+                        <input type="number" name="price" required min="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Số lượng:</label>
+                        <input type="number" name="quantity" required min="0">
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label>Số lượng:</label>
-                    <input type="number" name="quantity" required>
+                    <label>Thể loại:</label>
+                    <select name="category" required>
+                        <option value="">Chọn thể loại</option>
+                        <option value="vanHoc">Văn học</option>
+                        <option value="kinhTe">Kinh tế</option>
+                        <option value="tamLy">Tâm lý - Kỹ năng sống</option>
+                        <option value="nuoiDayConCai">Nuôi dạy con</option>
+                        <option value="ngoaiNgu">Sách học ngoại ngữ</option>
+                        <option value="truyen">Truyện tranh</option>
+                        <option value="thieu_nhi">Thiếu nhi</option>
+                        <option value="giao_khoa">Giáo khoa - Tham khảo</option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <label>Ảnh:</label>
+                    <label>Nhà xuất bản:</label>
+                    <input type="text" name="publisher">
+                </div>
+                <div class="form-group">
+                    <label>Năm xuất bản:</label>
+                    <input type="number" name="publishYear" min="1900" max="2024">
+                </div>
+                <div class="form-group">
+                    <label>Ảnh bìa sách:</label>
                     <input type="file" name="image" accept="image/*">
+                    <div class="image-preview">
+                        <img id="imagePreview" src="" alt="Preview" style="display: none; max-width: 200px;">
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Mô tả:</label>
-                    <textarea name="description"></textarea>
+                    <textarea name="description" rows="4"></textarea>
                 </div>
-                <button type="submit">Lưu</button>
+                <div class="form-actions">
+                    <button type="submit" class="btn-save">Lưu</button>
+                    <button type="button" class="btn-cancel" onclick="document.getElementById('bookForm').style.display='none'">Hủy</button>
+                </div>
             </form>
         </div>
     </div>

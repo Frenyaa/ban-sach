@@ -70,10 +70,10 @@ function loadSanPham() {
                 <td>${book.quantity}</td>
                 <td>
                     <div class="action-buttons">
-                        <button class="edit-button" onclick="editBook(${index})">
+                        <button class="edit-button" onclick="editBook(${index})" title="Sửa">
                             <i class="fas fa-edit"></i>
                         </button>
-                        <button class="delete-button" onclick="deleteBook(${index})">
+                        <button class="delete-button" onclick="deleteBook(${index})" title="Xóa">
                             <i class="fas fa-trash"></i>
                         </button>
                     </div>
@@ -91,19 +91,42 @@ function showAddBookForm() {
     
     // Reset form
     document.getElementById('addBookForm').reset();
+    document.getElementById('imagePreview').style.display = 'none';
 }
+
+// Hiển thị preview ảnh khi chọn file
+document.querySelector('input[name="image"]').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    const preview = document.getElementById('imagePreview');
+    
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            preview.style.display = 'block';
+        }
+        reader.readAsDataURL(file);
+    } else {
+        preview.style.display = 'none';
+    }
+});
 
 function saveBook(form) {
     event.preventDefault();
     
     const books = JSON.parse(localStorage.getItem('books')) || [];
     const newBook = {
+        id: Date.now().toString(),
         name: form.name.value,
         author: form.author.value,
         price: Number(form.price.value),
         quantity: Number(form.quantity.value),
+        category: form.category.value,
+        publisher: form.publisher.value,
+        publishYear: form.publishYear.value,
         description: form.description.value,
-        img: form.image.files[0] ? URL.createObjectURL(form.image.files[0]) : 'img/default-book.jpg'
+        img: form.image.files[0] ? URL.createObjectURL(form.image.files[0]) : 'img/default-book.jpg',
+        dateAdded: new Date().toISOString()
     };
     
     books.push(newBook);
@@ -113,20 +136,37 @@ function saveBook(form) {
     document.getElementById('bookForm').style.display = 'none';
     loadSanPham();
     
+    // Hiển thị thông báo thành công
+    alert('Thêm sách thành công!');
     return false;
 }
 
 function editBook(index) {
     const books = JSON.parse(localStorage.getItem('books')) || [];
     const book = books[index];
-    
-    // Hiển thị form với dữ liệu hiện tại
     const form = document.getElementById('addBookForm');
+    
+    // Điền thông tin sách vào form
     form.name.value = book.name;
     form.author.value = book.author;
     form.price.value = book.price;
     form.quantity.value = book.quantity;
+    form.category.value = book.category || '';
+    form.publisher.value = book.publisher || '';
+    form.publishYear.value = book.publishYear || '';
     form.description.value = book.description || '';
+    
+    // Hiển thị ảnh preview nếu có
+    const preview = document.getElementById('imagePreview');
+    if (book.img && book.img !== 'img/default-book.jpg') {
+        preview.src = book.img;
+        preview.style.display = 'block';
+    } else {
+        preview.style.display = 'none';
+    }
+    
+    // Lưu index sách đang sửa vào form
+    form.dataset.editIndex = index;
     
     // Hiển thị modal
     document.getElementById('bookForm').style.display = 'block';
@@ -163,11 +203,11 @@ function loadKhachHang() {
                 </td>
                 <td>
                     <div class="action-buttons">
-                        <button class="edit-button" onclick="viewCustomerDetails(${index})">
+                        <button class="view-button" onclick="viewCustomerDetails(${index})" title="Xem chi tiết">
                             <i class="fas fa-eye"></i>
                         </button>
-                        <button class="delete-button" onclick="toggleCustomerStatus(${index})">
-                            <i class="fas fa-${user.off ? 'lock-open' : 'lock'}"></i>
+                        <button class="toggle-button" onclick="toggleCustomerStatus(${index})" title="${user.off ? 'Mở khóa' : 'Khóa'} tài khoản">
+                            <i class="fas ${user.off ? 'fa-lock-open' : 'fa-lock'}"></i>
                         </button>
                     </div>
                 </td>
@@ -186,6 +226,7 @@ function toggleCustomerStatus(index) {
         user.off = !user.off;
         localStorage.setItem('ListUser', JSON.stringify(users));
         loadKhachHang();
+        alert(`Đã ${user.off ? 'khóa' : 'mở khóa'} tài khoản ${user.username} thành công!`);
     }
 }
 
@@ -193,14 +234,76 @@ function viewCustomerDetails(index) {
     const users = JSON.parse(localStorage.getItem('ListUser')) || [];
     const user = users[index];
     
-    alert(`
-        Thông tin chi tiết:
-        Họ và tên: ${user.ho} ${user.ten}
-        Email: ${user.email}
-        Số điện thoại: ${user.phone || 'Chưa cập nhật'}
-        Tổng số đơn hàng: ${user.donhang ? user.donhang.length : 0}
-        Trạng thái: ${user.off ? 'Đã khóa' : 'Đang hoạt động'}
-    `);
+    let orderDetails = '';
+    if (user.donhang && user.donhang.length > 0) {
+        orderDetails = '\n\nLịch sử đơn hàng:\n';
+        user.donhang.forEach((order, i) => {
+            orderDetails += `\nĐơn hàng ${i + 1}:`;
+            orderDetails += `\nNgày mua: ${new Date(order.ngaymua).toLocaleString()}`;
+            orderDetails += `\nTrạng thái: ${order.tinhTrang}`;
+            orderDetails += `\nSản phẩm:`;
+            order.sp.forEach(item => {
+                const product = timKiemTheoMa(list_products, item.ma);
+                if (product) {
+                    orderDetails += `\n- ${product.name} (SL: ${item.soluong})`;
+                }
+            });
+            orderDetails += '\n';
+        });
+    }
+    
+    alert(
+        `Thông tin chi tiết khách hàng:
+        
+Họ và tên: ${user.ho} ${user.ten}
+Email: ${user.email}
+Số điện thoại: ${user.phone || 'Chưa cập nhật'}
+Tài khoản: ${user.username}
+Tổng số đơn hàng: ${user.donhang ? user.donhang.length : 0}
+Trạng thái: ${user.off ? 'Đã khóa' : 'Đang hoạt động'}${orderDetails}`
+    );
+}
+
+function searchCustomers() {
+    const searchTerm = document.getElementById('searchCustomer').value.toLowerCase();
+    const users = JSON.parse(localStorage.getItem('ListUser')) || [];
+    
+    const filteredUsers = users.filter(user => 
+        `${user.ho} ${user.ten}`.toLowerCase().includes(searchTerm) ||
+        user.email.toLowerCase().includes(searchTerm) ||
+        user.username.toLowerCase().includes(searchTerm)
+    );
+    
+    let html = '';
+    filteredUsers.forEach((user, index) => {
+        const totalOrders = user.donhang ? user.donhang.length : 0;
+        html += `
+            <tr>
+                <td>${index + 1}</td>
+                <td>${user.ho} ${user.ten}</td>
+                <td>${user.email}</td>
+                <td>${user.phone || 'Chưa cập nhật'}</td>
+                <td>${totalOrders}</td>
+                <td>
+                    <span class="status-badge ${user.off ? 'status-inactive' : 'status-active'}">
+                        ${user.off ? 'Đã khóa' : 'Đang hoạt động'}
+                    </span>
+                </td>
+                <td>
+                    <div class="action-buttons">
+                        <button class="view-button" onclick="viewCustomerDetails(${index})" title="Xem chi tiết">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="toggle-button" onclick="toggleCustomerStatus(${index})" title="${user.off ? 'Mở khóa' : 'Khóa'} tài khoản">
+                            <i class="fas ${user.off ? 'fa-lock-open' : 'fa-lock'}"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `;
+    });
+    
+    document.getElementById('customerList').innerHTML = html;
 }
 
 // Tìm kiếm
@@ -210,22 +313,34 @@ function searchBooks() {
     
     const filteredBooks = books.filter(book => 
         book.name.toLowerCase().includes(searchTerm) ||
-        book.author.toLowerCase().includes(searchTerm)
+        book.author.toLowerCase().includes(searchTerm) ||
+        book.category.toLowerCase().includes(searchTerm)
     );
     
-    displayFilteredBooks(filteredBooks);
-}
-
-function searchCustomers() {
-    const searchTerm = document.getElementById('searchCustomer').value.toLowerCase();
-    const users = JSON.parse(localStorage.getItem('ListUser')) || [];
+    let html = '';
+    filteredBooks.forEach((book, index) => {
+        html += `
+            <tr>
+                <td><img src="${book.img}" alt="${book.name}" style="width: 50px; height: 75px; object-fit: cover;"></td>
+                <td>${book.name}</td>
+                <td>${book.author}</td>
+                <td>${book.price.toLocaleString()}đ</td>
+                <td>${book.quantity}</td>
+                <td>
+                    <div class="action-buttons">
+                        <button class="edit-button" onclick="editBook(${index})" title="Sửa">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="delete-button" onclick="deleteBook(${index})" title="Xóa">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `;
+    });
     
-    const filteredUsers = users.filter(user => 
-        `${user.ho} ${user.ten}`.toLowerCase().includes(searchTerm) ||
-        user.email.toLowerCase().includes(searchTerm)
-    );
-    
-    displayFilteredCustomers(filteredUsers);
+    document.getElementById('bookList').innerHTML = html;
 }
 
 // Đóng modal khi click vào nút close
