@@ -226,7 +226,18 @@ function addTatCaDonHang(user) {
             </h3>`;
         return;
     }
+
+    // Tính tổng số lượng sản phẩm và tổng tiền từ tất cả đơn hàng
+    tongSanPhamTatCaDonHang = 0;
+    tongTienTatCaDonHang = 0;
+    
     for (var dh of user.donhang) {
+        for (var sp of dh.sp) {
+            tongSanPhamTatCaDonHang += sp.soluong;
+            var p = timKiemTheoMa(list_products, sp.ma);
+            var price = (p.promo.name == 'giareonline' ? p.promo.value : p.price);
+            tongTienTatCaDonHang += stringToNum(price) * sp.soluong;
+        }
         addDonHang(dh);
     }
 }
