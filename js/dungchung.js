@@ -912,6 +912,12 @@ function getThongTinSanPhamFrom_TheGioiDiDong() {
     })();
 }
 
+// Hàm thiết lập headers cho AJAX request để đảm bảo xử lý đúng tiếng Việt
+function setupAjaxHeaders(xhr) {
+    xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+    xhr.setRequestHeader('Accept', 'application/json; charset=UTF-8');
+}
+
 // $('.taikhoan').find('input').on('keyup blur focus', function (e) {
 
 //     var $this = $(this),

@@ -46,7 +46,7 @@ function addInfoUser(user) {
         </tr>
         <tr>
             <td>Tài khoản: </td>
-            <td> <input type="text" value="` + user.username + `" readonly> </td>
+            <td> <input type="text" value="` + user.username + `" readonly accept-charset="UTF-8"> </td>
             <td> <i class="fa fa-pencil" onclick="changeInfo(this, 'username')"></i> </td>
         </tr>
         <tr>
@@ -61,15 +61,15 @@ function addInfoUser(user) {
                 <table>
                     <tr>
                         <td> <div>Mật khẩu cũ:</div> </td>
-                        <td> <div><input type="password"></div> </td>
+                        <td> <div><input type="password" accept-charset="UTF-8"></div> </td>
                     </tr>
                     <tr>
                         <td> <div>Mật khẩu mới:</div> </td>
-                        <td> <div><input type="password"></div> </td>
+                        <td> <div><input type="password" accept-charset="UTF-8"></div> </td>
                     </tr>
                     <tr>
                         <td> <div>Xác nhận mật khẩu:</div> </td>
-                        <td> <div><input type="password"></div> </td>
+                        <td> <div><input type="password" accept-charset="UTF-8"></div> </td>
                     </tr>
                     <tr>
                         <td></td>
@@ -82,17 +82,17 @@ function addInfoUser(user) {
         </tr>
         <tr>
             <td>Họ: </td>
-            <td> <input type="text" value="` + user.ho + `" readonly> </td>
+            <td> <input type="text" value="` + user.ho + `" accept-charset="UTF-8"> </td>
             <td> <i class="fa fa-pencil" onclick="changeInfo(this, 'ho')"></i> </td>
         </tr>
         <tr>
             <td>Tên: </td>
-            <td> <input type="text" value="` + user.ten + `" readonly> </td>
+            <td> <input type="text" value="` + user.ten + `" accept-charset="UTF-8"> </td>
             <td> <i class="fa fa-pencil" onclick="changeInfo(this, 'ten')"></i> </td>
         </tr>
         <tr>
             <td>Email: </td>
-            <td> <input type="text" value="` + user.email + `" readonly> </td>
+            <td> <input type="text" value="` + user.email + `" accept-charset="UTF-8"> </td>
             <td> <i class="fa fa-pencil" onclick="changeInfo(this, 'email')"></i> </td>
         </tr>
         <tr>
