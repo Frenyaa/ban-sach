@@ -232,102 +232,121 @@ function timKiemSanPham(inp) {
 
 // Thêm
 let previewSrc; // biến toàn cục lưu file ảnh đang thêm
-function layThongTinSanPhamTuTable(id) {
-    var khung = document.getElementById(id);
-    var tr = khung.getElementsByTagName('tr');
-
-    var masp = tr[1].getElementsByTagName('td')[1].getElementsByTagName('input')[0].value;
-    var name = tr[2].getElementsByTagName('td')[1].getElementsByTagName('input')[0].value;
-    var company = tr[3].getElementsByTagName('td')[1].getElementsByTagName('select')[0].value;
-    var img = tr[4].getElementsByTagName('td')[1].getElementsByTagName('img')[0].src;
-    var price = tr[5].getElementsByTagName('td')[1].getElementsByTagName('input')[0].value;
-    var star = tr[6].getElementsByTagName('td')[1].getElementsByTagName('input')[0].value;
-    var rateCount = tr[7].getElementsByTagName('td')[1].getElementsByTagName('input')[0].value;
-    var promoName = tr[8].getElementsByTagName('td')[1].getElementsByTagName('select')[0].value;
-    var promoValue = tr[9].getElementsByTagName('td')[1].getElementsByTagName('input')[0].value;
-
-    var screen = tr[11].getElementsByTagName('td')[1].getElementsByTagName('input')[0].value;
-    var os = tr[12].getElementsByTagName('td')[1].getElementsByTagName('input')[0].value;
-    var camara = tr[13].getElementsByTagName('td')[1].getElementsByTagName('input')[0].value;
-    var camaraFront = tr[14].getElementsByTagName('td')[1].getElementsByTagName('input')[0].value;
-    var cpu = tr[15].getElementsByTagName('td')[1].getElementsByTagName('input')[0].value;
-    var ram = tr[16].getElementsByTagName('td')[1].getElementsByTagName('input')[0].value;
-    var rom = tr[17].getElementsByTagName('td')[1].getElementsByTagName('input')[0].value;
-    var microUSB = tr[18].getElementsByTagName('td')[1].getElementsByTagName('input')[0].value;
-    var battery = tr[19].getElementsByTagName('td')[1].getElementsByTagName('input')[0].value;
-
-    if(isNaN(price)) {
-        alert('Giá phải là số nguyên');
-        return false;
+function layThongTinSanPhamTuTable(tr) {
+    var masp = tr.children[1].innerHTML;
+    var name = tr.children[2].innerHTML;
+    var company = tr.children[3].innerHTML;
+    var img = tr.children[4].children[0].src;
+    var price = tr.children[5].innerHTML;
+    var amount = tr.children[6].innerHTML;
+    
+    var info = {
+        "tacgia": tr.children[7].innerHTML,
+        "nxb": tr.children[8].innerHTML,
+        "namxb": tr.children[9].innerHTML,
+        "sotrang": tr.children[10].innerHTML,
+        "kichthuoc": tr.children[11].innerHTML,
+        "loaibia": tr.children[12].innerHTML,
+        "theloai": tr.children[13].innerHTML
     }
 
-    if(isNaN(star)) {
-        alert('Số sao phải là số nguyên');
-        return false;
-    }
-
-    if(isNaN(rateCount)) {
-        alert('Số đánh giá phải là số nguyên');
-        return false;
-    }
-
-    try {
-        return {
-            "name": name,
-            "company": company,
-            "img": previewSrc,
-            "price": numToString(Number.parseInt(price, 10)),
-            "star": Number.parseInt(star, 10),
-            "rateCount": Number.parseInt(rateCount, 10),
-            "promo": {
-                "name": promoName,
-                "value": promoValue
-            },
-            "detail": {
-                "screen": screen,
-                "os": os,
-                "camara": camara,
-                "camaraFront": camaraFront,
-                "cpu": cpu,
-                "ram": ram,
-                "rom": rom,
-                "microUSB": microUSB,
-                "battery": battery
-            },
-            "masp" : masp
-        }
-    } catch(e) {
-        alert('Lỗi: ' + e.toString());
-        return false;
-    }
+    return {
+        "masp": masp,
+        "name": name,
+        "company": company,
+        "img": img,
+        "price": price,
+        "amount": amount,
+        "info": info
+    };
 }
+
+function themSanPhamVaoTable(p) {
+    var table = document.getElementsByClassName('listSanPham')[0];
+
+    var row = table.insertRow();
+    var checkbox = row.insertCell(0);
+    var masp = row.insertCell(1);
+    var name = row.insertCell(2);
+    var company = row.insertCell(3);
+    var img = row.insertCell(4);
+    var price = row.insertCell(5);
+    var amount = row.insertCell(6);
+    var tacgia = row.insertCell(7);
+    var nxb = row.insertCell(8);
+    var namxb = row.insertCell(9);
+    var sotrang = row.insertCell(10);
+    var kichthuoc = row.insertCell(11);
+    var loaibia = row.insertCell(12);
+    var theloai = row.insertCell(13);
+
+    checkbox.innerHTML = "<input type='checkbox' onclick='changeButtonStatus()'>";
+    masp.innerHTML = p.masp;
+    name.innerHTML = p.name;
+    company.innerHTML = p.company;
+    img.innerHTML = "<img src='" + p.img + "' onclick='showImg(this.src)'>";
+    price.innerHTML = p.price;
+    amount.innerHTML = p.amount;
+    tacgia.innerHTML = p.info.tacgia;
+    nxb.innerHTML = p.info.nxb;
+    namxb.innerHTML = p.info.namxb;
+    sotrang.innerHTML = p.info.sotrang;
+    kichthuoc.innerHTML = p.info.kichthuoc;
+    loaibia.innerHTML = p.info.loaibia;
+    theloai.innerHTML = p.info.theloai;
+}
+
 function themSanPham() {
-    var newSp = layThongTinSanPhamTuTable('khungThemSanPham');
-    if(!newSp) return;
+    var newSp = layThongTinSanPhamTuForm();
+    if (!newSp) return;
 
-    for(var p of list_products) {
-        if(p.masp == newSp.masp) {
-            alert('Mã sản phẩm bị trùng !!');
-            return false;
-        }
+    // Them san pham vao danh sach
+    list_products.push(newSp);
 
-        if(p.name == newSp.name) {
-            alert('Tên sản phẩm bị trùng !!');
-            return false;
-        }
-    }
-     // Them san pham vao list_products
-     list_products.push(newSp);
+    // Them san pham vao table
+    themSanPhamVaoTable(newSp);
 
-     // Lưu vào localstorage
-     setListProducts(list_products);
- 
-     // Vẽ lại table
-     addTableProducts();
-
-    alert('Thêm sản phẩm "' + newSp.name + '" thành công.');
+    // Reset form
     document.getElementById('khungThemSanPham').style.transform = 'scale(0)';
+    document.getElementById('khungThemSanPham').style.opacity = '0';
 }
+
+function layThongTinSanPhamTuForm() {
+    var masp = document.getElementsByName('masp')[0].value;
+    var name = document.getElementsByName('name')[0].value;
+    var company = document.getElementsByName('company')[0].value;
+    var img = document.getElementsByName('img')[0].value;
+    var price = document.getElementsByName('price')[0].value;
+    var amount = document.getElementsByName('amount')[0].value;
+
+    var info = {
+        "tacgia": document.getElementsByName('tacgia')[0].value,
+        "nxb": document.getElementsByName('nxb')[0].value,
+        "namxb": document.getElementsByName('namxb')[0].value,
+        "sotrang": document.getElementsByName('sotrang')[0].value,
+        "kichthuoc": document.getElementsByName('kichthuoc')[0].value,
+        "loaibia": document.getElementsByName('loaibia')[0].value,
+        "theloai": document.getElementsByName('theloai')[0].value
+    }
+
+    if(!masp || !name || !company || !img || !price || !amount || 
+       !info.tacgia || !info.nxb || !info.namxb || !info.sotrang || 
+       !info.kichthuoc || !info.loaibia || !info.theloai) {
+        alert('Vui lòng điền đầy đủ thông tin sản phẩm!');
+        return false;
+    }
+
+    return {
+        "masp": masp,
+        "name": name,
+        "company": company,
+        "img": img,
+        "price": price,
+        "amount": amount,
+        "info": info
+    };
+}
+
 function autoMaSanPham(company) {
     // hàm tự tạo mã cho sản phẩm mới
     if(!company) company = document.getElementsByName('chonCompany')[0].value;
