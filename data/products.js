@@ -3,9 +3,15 @@ var list_products = [
         "masp": "book1",
         "name": "Đắc Nhân Tâm",
         "company": "NXB Tổng hợp TPHCM",
-        "img": "img/products/dac-nhan-tam.jpg", 
+        "img": "img/products/Sach/dac-nhan-tam.jpg", 
         "price": "88000",
         "amount": 100,
+        "star": 4,
+        "rateCount": 100,
+        "promo": {
+            "name": "",
+            "value": ""
+        },
         "info": {
             "tacgia": "Dale Carnegie",
             "nxb": "NXB Tổng hợp TPHCM",
@@ -20,9 +26,15 @@ var list_products = [
         "masp": "book2", 
         "name": "Nhà Giả Kim",
         "company": "NXB Văn Học",
-        "img": "img/products/nha-gia-kim.jpg",
+        "img": "img/products/Sach/nha-gia-kim.jpg",
         "price": "79000",
         "amount": 50,
+        "star": 5,
+        "rateCount": 150,
+        "promo": {
+            "name": "",
+            "value": ""
+        },
         "info": {
             "tacgia": "Paulo Coelho",
             "nxb": "NXB Văn Học",
@@ -37,9 +49,15 @@ var list_products = [
         "masp": "book3",
         "name": "Tuổi Trẻ Đáng Giá Bao Nhiêu",
         "company": "NXB Hội Nhà Văn",
-        "img": "img/products/tuoi-tre-dang-gia-bao-nhieu.jpg",
+        "img": "img/products/Sach/tuoi-tre-dang-gia-bao-nhieu.jpg",
         "price": "90000",
         "amount": 80,
+        "star": 4,
+        "rateCount": 80,
+        "promo": {
+            "name": "",
+            "value": ""
+        },
         "info": {
             "tacgia": "Rosie Nguyễn",
             "nxb": "NXB Hội Nhà Văn",
@@ -54,9 +72,15 @@ var list_products = [
         "masp": "book4",
         "name": "Cà Phê Cùng Tony",
         "company": "NXB Trẻ",
-        "img": "img/products/ca-phe-cung-tony.jpg",
+        "img": "img/products/Sach/ca-phe-cung-tony.jpg",
         "price": "90000",
         "amount": 70,
+        "star": 5,
+        "rateCount": 120,
+        "promo": {
+            "name": "",
+            "value": ""
+        },
         "info": {
             "tacgia": "Tony Buổi Sáng",
             "nxb": "NXB Trẻ",
@@ -71,9 +95,15 @@ var list_products = [
         "masp": "book5",
         "name": "Tôi Thấy Hoa Vàng Trên Cỏ Xanh",
         "company": "NXB Trẻ",
-        "img": "img/products/toi-thay-hoa-vang-tren-co-xanh.jpg",
+        "img": "img/products/Sach/toi-thay-hoa-vang-tren-co-xanh.jpg",
         "price": "125000",
         "amount": 60,
+        "star": 5,
+        "rateCount": 200,
+        "promo": {
+            "name": "",
+            "value": ""
+        },
         "info": {
             "tacgia": "Nguyễn Nhật Ánh",
             "nxb": "NXB Trẻ", 
