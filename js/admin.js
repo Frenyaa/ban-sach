@@ -575,119 +575,65 @@ function getValueOfTypeInTable_SanPham(tr, loai) {
 // Vẽ bảng
 function addTableDonHang() {
     var tc = document.getElementsByClassName('donhang')[0].getElementsByClassName('table-content')[0];
-    var s = `<table class="table-outline hideImg">`;
+    var s = `<table class="table-outline">`;
 
-    var listDH = getListDonHang();
+    var listDonHang = getListDonHang();
 
-    TONGTIEN = 0;
-    for (var i = 0; i < listDH.length; i++) {
-        var d = listDH[i];
+    for (var i = 0; i < listDonHang.length; i++) {
+        var d = listDonHang[i];
         s += `<tr>
-            <td style="width: 5%">` + (i+1) + `</td>
-            <td style="width: 13%">` + d.ma + `</td>
-            <td style="width: 7%">` + d.khach + `</td>
-            <td style="width: 20%">` + d.sp + `</td>
-            <td style="width: 15%">` + d.tongtien + `</td>
-            <td style="width: 10%">` + d.ngaygio + `</td>
-            <td style="width: 10%">` + d.tinhTrang + `</td>
+            <td style="width: 5%">` + (i + 1) + `</td>
+            <td style="width: 13%">` + d.ma_don + `</td>
+            <td style="width: 7%">` + d.khach_hang.ho_ten + `</td>
+            <td style="width: 20%">`;
+
+        for (var p of d.san_pham) {
+            s += p.so_luong + ' x ' + list_products.find(pro => pro.masp == p.masp).name + '<br>';
+        }
+
+        s += `</td>
+            <td style="width: 15%">` + d.tong_tien + `</td>
+            <td style="width: 10%">` + d.ngay_dat + `</td>
+            <td style="width: 10%">` + d.trang_thai + `</td>
             <td style="width: 10%">
                 <div class="tooltip">
-                    <i class="fa fa-check" onclick="duyet('`+d.ma+`', true)"></i>
+                    <i class="fa fa-check" onclick="duyet('` + d.ma_don + `', true)"></i>
                     <span class="tooltiptext">Duyệt</span>
                 </div>
                 <div class="tooltip">
-                    <i class="fa fa-remove" onclick="duyet('`+d.ma+`', false)"></i>
+                    <i class="fa fa-remove" onclick="duyet('` + d.ma_don + `', false)"></i>
                     <span class="tooltiptext">Hủy</span>
                 </div>
-                
             </td>
         </tr>`;
-        TONGTIEN += stringToNum(d.tongtien);
     }
 
     s += `</table>`;
     tc.innerHTML = s;
 }
 
-function getListDonHang(traVeDanhSachSanPham = false) {
-    var u = getListUser();
-    var result = [];
-    for(var i = 0; i < u.length; i++) {
-        for(var j = 0; j < u[i].donhang.length; j++) {
-            // Tổng tiền
-            var tongtien = 0;
-            for(var s of u[i].donhang[j].sp) {
-                var timsp = timKiemTheoMa(list_products, s.ma);
-                if(timsp.promo.name == 'giareonline') tongtien += stringToNum(timsp.promo.value);
-                else tongtien += stringToNum(timsp.price);
-            }
-
-            // Ngày giờ
-            var x = new Date(u[i].donhang[j].ngaymua).toLocaleString();
-
-            // Các sản phẩm - dạng html
-            var sps = '';
-            for(var s of u[i].donhang[j].sp) {
-                sps += `<p style="text-align: right">`+(timKiemTheoMa(list_products, s.ma).name + ' [' + s.soluong + ']') + `</p>`;
-            }
-
-            // Các sản phẩm - dạng mảng
-            var danhSachSanPham = [];
-            for(var s of u[i].donhang[j].sp) {
-                danhSachSanPham.push({
-                    sanPham: timKiemTheoMa(list_products, s.ma),
-                    soLuong: s.soluong,
-                });
-            }
-
-            // Lưu vào result
-            result.push({
-                "ma": u[i].donhang[j].ngaymua.toString(),
-                "khach": u[i].username,
-                "sp": traVeDanhSachSanPham ? danhSachSanPham : sps,
-                "tongtien": numToString(tongtien),
-                "ngaygio": x,
-                "tinhTrang": u[i].donhang[j].tinhTrang
-            });
-        }
-    }
-    return result;
+function getListDonHang() {
+    return list_orders;
 }
 
 // Duyệt
 function duyet(maDonHang, duyetDon) {
-    var u = getListUser();
-    for(var i = 0; i < u.length; i++) {
-        for(var j = 0; j < u[i].donhang.length; j++) {
-            if(u[i].donhang[j].ngaymua == maDonHang) {
-                if(duyetDon) {
-                    if(u[i].donhang[j].tinhTrang == 'Đang chờ xử lý') {
-                        u[i].donhang[j].tinhTrang = 'Đã giao hàng';
-                    
-                    } else if(u[i].donhang[j].tinhTrang == 'Đã hủy') {
-                        alert('Không thể duyệt đơn đã hủy !');
-                        return;
-                    }
-                } else {
-                    if(u[i].donhang[j].tinhTrang == 'Đang chờ xử lý') {
-                        if(window.confirm('Bạn có chắc muốn hủy đơn hàng này. Hành động này sẽ không thể khôi phục lại !'))
-                            u[i].donhang[j].tinhTrang = 'Đã hủy';
-                    
-                    } else if(u[i].donhang[j].tinhTrang == 'Đã giao hàng') {
-                        alert('Không thể hủy đơn hàng đã giao !');
-                        return;
-                    }
-                }
-                break;
+    var don = list_orders.find(d => d.ma_don === maDonHang);
+    if (don) {
+        if (duyetDon) {
+            if (don.trang_thai === 'Đang xử lý') {
+                don.trang_thai = 'Đang giao hàng';
+            } else if (don.trang_thai === 'Đang giao hàng') {
+                don.trang_thai = 'Đã giao hàng';
+            }
+        } else {
+            if (don.trang_thai === 'Đang xử lý') {
+                don.trang_thai = 'Đã hủy';
             }
         }
+        // Cập nhật giao diện
+        addTableDonHang();
     }
-
-    // lưu lại
-    setListUser(u);
-
-    // vẽ lại
-    addTableDonHang();
 }
 
 function locDonHangTheoKhoangNgay() {
@@ -754,28 +700,26 @@ function getValueOfTypeInTable_DonHang(tr, loai) {
 // Vẽ bảng
 function addTableKhachHang() {
     var tc = document.getElementsByClassName('khachhang')[0].getElementsByClassName('table-content')[0];
-    var s = `<table class="table-outline hideImg">`;
+    var s = `<table class="table-outline">`;
 
-    var listUser = getListUser();
-
-    for (var i = 0; i < listUser.length; i++) {
-        var u = listUser[i];
+    for (var i = 0; i < list_customers.length; i++) {
+        var u = list_customers[i];
         s += `<tr>
-            <td style="width: 5%">` + (i+1) + `</td>
+            <td style="width: 5%">` + (i + 1) + `</td>
             <td style="width: 15%">` + u.ho + ' ' + u.ten + `</td>
             <td style="width: 20%">` + u.email + `</td>
             <td style="width: 20%">` + u.username + `</td>
-            <td style="width: 10%">` + u.pass + `</td>
+            <td style="width: 10%">` + u.mat_khau + `</td>
             <td style="width: 10%">
                 <div class="tooltip">
                     <label class="switch">
-                        <input type="checkbox" `+(u.off?'':'checked')+` onclick="voHieuHoaNguoiDung(this, '`+u.username+`')">
+                        <input type="checkbox" ` + (u.trang_thai == 'Hoạt động' ? 'checked' : '') + ` onclick="voHieuHoaNguoiDung(this, '` + u.username + `')">
                         <span class="slider round"></span>
                     </label>
-                    <span class="tooltiptext">`+(u.off?'Mở':'Khóa')+`</span>
+                    <span class="tooltiptext">` + (u.trang_thai == 'Hoạt động' ? 'Khóa' : 'Mở khóa') + `</span>
                 </div>
                 <div class="tooltip">
-                    <i class="fa fa-remove" onclick="xoaNguoiDung('`+u.username+`')"></i>
+                    <i class="fa fa-remove" onclick="xoaNguoiDung('` + u.username + `')"></i>
                     <span class="tooltiptext">Xóa</span>
                 </div>
             </td>
