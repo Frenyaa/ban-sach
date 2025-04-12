@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>Admin - Thế giới điện thoại</title>
+    <title>Admin - Thế Giới Sách</title>
     <link rel="shortcut icon" href="img/favicon.ico" />
 
     <!-- Load font awesome icons -->
@@ -28,7 +28,7 @@
 
 <body>
     <header>
-        <h2>SmartPhone Store - Admin</h2>
+        <h2>Thế Giới Sách - Admin</h2>
     </header>
 
     <!-- Menu -->
@@ -115,11 +115,11 @@
                         <td><input type="text"></td>
                     </tr>
                     <tr>
-                        <td>Hãng:</td>
+                        <td>Nhà xuất bản:</td>
                         <td>
                             <select name="chonCompany" onchange="autoMaSanPham(this.value)">
                                 <script>
-                                    var company = ["Apple", "Samsung", "Oppo", "Nokia", "Huawei", "Xiaomi","Realme", "Vivo", "Philips", "Mobell", "Mobiistar", "Itel","Coolpad", "HTC", "Motorola"];
+                                    var company = ["NXB Kim Đồng", "NXB Trẻ", "NXB Giáo Dục", "NXB Văn Học", "NXB Hội Nhà Văn", "NXB Tổng Hợp TPHCM", "NXB Thanh Niên", "NXB Phụ Nữ", "NXB Lao Động", "First News", "Alpha Books", "Nhã Nam"];
                                     for(var c of company) {
                                         document.writeln(`<option value="`+c+`">`+c+`</option>`);
                                     }
