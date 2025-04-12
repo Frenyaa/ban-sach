@@ -286,19 +286,21 @@
 
             // Tạo đơn hàng mới
             const order = {
-                id: Date.now(),
-                items: cart,
-                total: total,
-                shippingInfo: {
-                    fullName,
-                    phone,
-                    email,
-                    address,
-                    note
+                ngaymua: Date.now(),
+                sp: cart.map(item => ({
+                    ma: item.ma,
+                    soluong: item.quantity,
+                    date: new Date().toLocaleString()
+                })),
+                tinhTrang: 'Đang chờ xử lý',
+                thongTinGiaoHang: {
+                    hoTen: fullName,
+                    sdt: phone,
+                    email: email,
+                    diaChi: address,
+                    ghiChu: note
                 },
-                paymentMethod: selectedMethod.value,
-                status: 'Đang chờ xử lý',
-                date: new Date().toLocaleString()
+                phuongThucThanhToan: selectedMethod.value
             };
 
             // Lưu đơn hàng vào localStorage
@@ -306,6 +308,9 @@
             if (currentUser) {
                 if (!currentUser.donhang) currentUser.donhang = [];
                 currentUser.donhang.push(order);
+                
+                // Xóa sản phẩm trong giỏ hàng của người dùng
+                currentUser.products = [];
                 localStorage.setItem('currentUser', JSON.stringify(currentUser));
 
                 // Cập nhật danh sách user
