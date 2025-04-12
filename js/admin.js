@@ -74,65 +74,104 @@ function createChartConfig(
 }
 
 function addThongKe() {
-    var danhSachDonHang = getListDonHang(true);
+    var danhSachDonHang = getListDonHang();
 
-    var thongKeHang = {}; // Thống kê hãng
+    var thongKeNXB = {}; // Thống kê theo nhà xuất bản
+    var tongDoanhThu = 0;
+    var tongDonHang = 0;
+    var tongSanPham = 0;
 
     danhSachDonHang.forEach(donHang => {
-        // Nếu đơn hàng bị huỷ thì không tính vào số lượng bán ra
-        if(donHang.tinhTrang === 'Đã hủy') return;
+        // Không tính đơn hàng đã hủy
+        if(donHang.trang_thai === 'Đã hủy') return;
+
+        tongDonHang++;
+        tongDoanhThu += Number(donHang.tong_tien);
 
         // Lặp qua từng sản phẩm trong đơn hàng
-        donHang.sp.forEach(sanPhamTrongDonHang => {
-            let tenHang = sanPhamTrongDonHang.sanPham.company;
-            let soLuong = sanPhamTrongDonHang.soLuong;
-            let donGia = stringToNum(sanPhamTrongDonHang.sanPham.price);
-            let thanhTien = soLuong * donGia;
+        donHang.san_pham.forEach(sp => {
+            tongSanPham += sp.so_luong;
+            let sanPham = list_products.find(p => p.masp === sp.masp);
+            if (!sanPham) return;
 
-            if(!thongKeHang[tenHang]) {
-                thongKeHang[tenHang] = {
+            let tenNXB = sanPham.company;
+            let soLuong = sp.so_luong;
+            let thanhTien = sp.don_gia * soLuong;
+
+            if(!thongKeNXB[tenNXB]) {
+                thongKeNXB[tenNXB] = {
                     soLuongBanRa: 0,
                     doanhThu: 0,
                 }
             }
 
-            thongKeHang[tenHang].soLuongBanRa += soLuong;
-            thongKeHang[tenHang].doanhThu += thanhTien;
-        })
-    })
+            thongKeNXB[tenNXB].soLuongBanRa += soLuong;
+            thongKeNXB[tenNXB].doanhThu += thanhTien;
+        });
+    });
 
-
-    // Lấy mảng màu ngẫu nhiên để vẽ đồ thị
-    let colors = getListRandomColor(Object.keys(thongKeHang).length);
+    // Lấy mảng màu ngẫu nhiên cho đồ thị
+    let colors = getListRandomColor(Object.keys(thongKeNXB).length);
 
     // Thêm thống kê
     addChart('myChart1', createChartConfig(
-        'Số lượng bán ra',
-        'bar', 
-        Object.keys(thongKeHang), 
-        Object.values(thongKeHang).map(_ =>  _.soLuongBanRa),
+        'Số lượng sách bán ra theo nhà xuất bản',
+        'bar',
+        Object.keys(thongKeNXB),
+        Object.values(thongKeNXB).map(v => v.soLuongBanRa),
         colors,
     ));
 
     addChart('myChart2', createChartConfig(
-        'Doanh thu',
-        'doughnut', 
-        Object.keys(thongKeHang), 
-        Object.values(thongKeHang).map(_ =>  _.doanhThu),
+        'Doanh thu theo nhà xuất bản',
+        'doughnut',
+        Object.keys(thongKeNXB),
+        Object.values(thongKeNXB).map(v => v.doanhThu),
         colors,
     ));
 
-    // var doughnutChart = copyObject(dataChart);
-    //     doughnutChart.type = 'doughnut';
-    // addChart('myChart2', doughnutChart);
+    // Thống kê theo trạng thái đơn hàng
+    let trangThaiDonHang = {
+        'Đang xử lý': 0,
+        'Đang giao hàng': 0,
+        'Đã giao hàng': 0,
+        'Đã hủy': 0
+    };
 
-    // var pieChart = copyObject(dataChart);
-    //     pieChart.type = 'pie';
-    // addChart('myChart3', pieChart);
+    danhSachDonHang.forEach(donHang => {
+        trangThaiDonHang[donHang.trang_thai]++;
+    });
 
-    // var lineChart = copyObject(dataChart);
-    //     lineChart.type = 'line';
-    // addChart('myChart4', lineChart);
+    addChart('myChart3', createChartConfig(
+        'Trạng thái đơn hàng',
+        'pie',
+        Object.keys(trangThaiDonHang),
+        Object.values(trangThaiDonHang),
+        getListRandomColor(4),
+    ));
+
+    // Thống kê doanh thu theo ngày
+    let doanhThuTheoNgay = {};
+    danhSachDonHang.forEach(donHang => {
+        if (donHang.trang_thai === 'Đã hủy') return;
+        
+        let ngay = donHang.ngay_dat;
+        if (!doanhThuTheoNgay[ngay]) {
+            doanhThuTheoNgay[ngay] = 0;
+        }
+        doanhThuTheoNgay[ngay] += Number(donHang.tong_tien);
+    });
+
+    // Sắp xếp theo ngày
+    let sortedDates = Object.keys(doanhThuTheoNgay).sort();
+
+    addChart('myChart4', createChartConfig(
+        'Doanh thu theo ngày',
+        'line',
+        sortedDates,
+        sortedDates.map(date => doanhThuTheoNgay[date]),
+        ['#4CAF50'],
+    ));
 }
 
 // ======================= Các Tab =========================
