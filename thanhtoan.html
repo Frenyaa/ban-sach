@@ -234,7 +234,7 @@
 
         // Hiển thị thông tin đơn hàng
         cart.forEach(item => {
-            const itemTotal = item.price * item.quantity;
+            const itemTotal = parseInt(item.price) * parseInt(item.quantity);
             total += itemTotal;
             orderItems.innerHTML += `
                 <div class="order-item">

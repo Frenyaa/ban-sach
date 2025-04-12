@@ -152,10 +152,15 @@ function thanhToan() {
     // Chuyển thông tin giỏ hàng sang định dạng phù hợp cho trang thanh toán
     var cartItems = currentuser.products.map(function(product) {
         var p = timKiemTheoMa(list_products, product.ma);
+        var price = p.promo.name == 'giareonline' ? p.promo.value : p.price;
+        // Chuyển đổi giá từ chuỗi sang số
+        if (typeof price === 'string') {
+            price = Number(price.replace(/[^\d]/g, '')); // Loại bỏ tất cả ký tự không phải số
+        }
         return {
             ma: product.ma,
             name: p.name,
-            price: p.promo.name == 'giareonline' ? p.promo.value : p.price,
+            price: price,
             quantity: product.soluong,
             img: p.img
         };
