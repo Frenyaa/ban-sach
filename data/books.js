@@ -1,91 +1,77 @@
-const list_books = [
+const books = [
     {
-        "id": "book1",
-        "name": "Đắc Nhân Tâm",
-        "author": "Dale Carnegie",
-        "price": "88000",
-        "img": "img/books/dac-nhan-tam.jpg",
-        "publisher": "NXB Tổng hợp TPHCM",
-        "category": "Kỹ năng sống",
-        "rating": 5,
-        "rateCount": 100,
-        "description": "Đắc nhân tâm của Dale Carnegie là quyển sách của mọi thời đại và một hiện tượng đáng kinh ngạc trong ngành xuất bản Hoa Kỳ.",
-        "promo": {
-            "name": "giamgia",
-            "value": "20"
-        }
+        id: 1,
+        title: "Nhà Giả Kim",
+        author: "Paulo Coelho",
+        price: 79000,
+        image: "img/books/nha-gia-kim.jpg",
+        category: "Văn học",
+        description: "Tiểu thuyết Nhà Giả Kim của Paulo Coelho như một câu chuyện cổ tích giản dị, nhân ái, giàu chất thơ, thấm đẫm những minh triết huyền bí của phương Đông.",
+        rating: 4.8,
+        reviews: 1250
     },
     {
-        "id": "book2",
-        "name": "Nhà Giả Kim",
-        "author": "Paulo Coelho",
-        "price": "69000",
-        "img": "img/books/nha-gia-kim.jpg",
-        "publisher": "NXB Văn Học",
-        "category": "Văn học",
-        "rating": 5,
-        "rateCount": 90,
-        "description": "Tất cả những trải nghiệm trong chuyến phiêu du theo đuổi vận mệnh của mình đã giúp Santiago thấu hiểu được ý nghĩa sâu xa nhất của hạnh phúc.",
-        "promo": {
-            "name": "moiramat",
-            "value": "0"
-        }
+        id: 2,
+        title: "Đắc Nhân Tâm",
+        author: "Dale Carnegie",
+        price: 89000,
+        image: "img/books/dac-nhan-tam.jpg",
+        category: "Kỹ năng sống",
+        description: "Đắc Nhân Tâm là cuốn sách nổi tiếng nhất, bán chạy nhất và có tầm ảnh hưởng nhất của mọi thời đại.",
+        rating: 4.7,
+        reviews: 980
     },
     {
-        "id": "book3",
-        "name": "Cây Cam Ngọt Của Tôi",
-        "author": "José Mauro de Vasconcelos",
-        "price": "108000",
-        "img": "img/books/cay-cam-ngot-cua-toi.jpg",
-        "publisher": "NXB Hội Nhà Văn",
-        "category": "Văn học",
-        "rating": 4,
-        "rateCount": 80,
-        "description": "Mở đầu bằng những thanh âm trong sáng và kết thúc lắng lại trong những nốt trầm hoài niệm, Cây Cam Ngọt Của Tôi là một bản nhạc đẹp về tình yêu thương.",
-        "promo": {
-            "name": "giamgia",
-            "value": "15"
-        }
+        id: 3,
+        title: "Tôi Thấy Hoa Vàng Trên Cỏ Xanh",
+        author: "Nguyễn Nhật Ánh",
+        price: 99000,
+        image: "img/books/toi-thay-hoa-vang.jpg",
+        category: "Văn học",
+        description: "Một tác phẩm đặc sắc của nhà văn chuyên viết cho thanh thiếu niên Nguyễn Nhật Ánh.",
+        rating: 4.9,
+        reviews: 1500
     },
     {
-        "id": "book4",
-        "name": "Tuổi Trẻ Đáng Giá Bao Nhiêu",
-        "author": "Rosie Nguyễn",
-        "price": "75000",
-        "img": "img/books/tuoi-tre-dang-gia-bao-nhieu.jpg",
-        "publisher": "NXB Trẻ",
-        "category": "Kỹ năng sống",
-        "rating": 4,
-        "rateCount": 70,
-        "description": "Tuổi trẻ đáng giá bao nhiêu? là tác phẩm đầu tay của tác giả Rosie Nguyễn, một cô gái trẻ đã dành phần lớn tuổi đôi mươi của mình để đi đây đi đó, làm nhiều công việc khác nhau.",
-        "promo": {
-            "name": "giareonline",
-            "value": "10"
-        }
+        id: 4,
+        title: "Nhà Lãnh Đạo Không Chức Danh",
+        author: "Robin Sharma",
+        price: 119000,
+        image: "img/books/nha-lanh-dao.jpg",
+        category: "Kinh tế",
+        description: "Cuốn sách bán chạy nhất về phát triển bản thân và lãnh đạo.",
+        rating: 4.6,
+        reviews: 850
     },
     {
-        "id": "book5",
-        "name": "Tôi Thấy Hoa Vàng Trên Cỏ Xanh",
-        "author": "Nguyễn Nhật Ánh",
-        "price": "125000",
-        "img": "img/books/toi-thay-hoa-vang-tren-co-xanh.jpg",
-        "publisher": "NXB Trẻ",
-        "category": "Văn học",
-        "rating": 5,
-        "rateCount": 85,
-        "description": "Tôi thấy hoa vàng trên cỏ xanh là một tác phẩm đặc sắc của nhà văn Nguyễn Nhật Ánh, với những câu chuyện nhỏ xoay quanh cuộc sống của những đứa trẻ ở một vùng quê nghèo.",
-        "promo": {
-            "name": "giamgia",
-            "value": "25"
-        }
+        id: 5,
+        title: "Số Đỏ",
+        author: "Vũ Trọng Phụng",
+        price: 69000,
+        image: "img/books/so-do.jpg",
+        category: "Văn học",
+        description: "Một trong những tác phẩm văn học hiện thực phê phán xuất sắc nhất của văn học Việt Nam.",
+        rating: 4.8,
+        reviews: 1100
+    },
+    {
+        id: 6,
+        title: "Đọc Vị Bất Kỳ Ai",
+        author: "David J.Lieberman",
+        price: 89000,
+        image: "img/books/doc-vi-bat-ky-ai.jpg",
+        category: "Kỹ năng sống",
+        description: "Cuốn sách giúp bạn hiểu rõ về bản thân và những người xung quanh.",
+        rating: 4.5,
+        reviews: 750
     }
 ];
 
 // Thêm các sách mới
-const new_books = list_books.filter(book => book.promo.name === 'moiramat');
+const new_books = books.filter(book => book.promo.name === 'moiramat');
 
 // Thêm các sách nổi bật
-const featured_books = list_books.filter(book => book.rating >= 4.5);
+const featured_books = books.filter(book => book.rating >= 4.5);
 
 // Hàm hiển thị sách
 function displayBook(book) {

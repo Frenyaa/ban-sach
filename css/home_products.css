@@ -317,3 +317,176 @@
         font-size: 16px;
     }
 }
+
+/* Container cho phần sách mới và nổi bật */
+.books-section {
+    padding: 40px 0;
+    background: #fff;
+}
+
+.books-section h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.books-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+    padding: 0 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Style cho từng cuốn sách */
+.book-item {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    overflow: hidden;
+}
+
+.book-item:hover {
+    transform: translateY(-5px);
+}
+
+.book-image {
+    position: relative;
+    padding-top: 140%;
+    overflow: hidden;
+}
+
+.book-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.book-item:hover .book-image img {
+    transform: scale(1.05);
+}
+
+.book-info {
+    padding: 15px;
+}
+
+.book-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 8px;
+    color: #333;
+    line-height: 1.4;
+    height: 44px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.book-author {
+    font-size: 14px;
+    color: #666;
+    margin: 0 0 8px;
+}
+
+.book-rating {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.stars {
+    color: #ffc107;
+    margin-right: 5px;
+}
+
+.review-count {
+    font-size: 12px;
+    color: #999;
+}
+
+.book-price {
+    font-size: 18px;
+    font-weight: 600;
+    color: #e94560;
+    margin: 0 0 15px;
+}
+
+.add-to-cart {
+    width: 100%;
+    padding: 10px;
+    background: #e94560;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.add-to-cart:hover {
+    background: #d63d57;
+}
+
+.add-to-cart i {
+    font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .books-container {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+        padding: 0 15px;
+    }
+
+    .book-title {
+        font-size: 14px;
+        height: 40px;
+    }
+
+    .book-price {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .books-container {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+        padding: 0 10px;
+    }
+
+    .book-info {
+        padding: 10px;
+    }
+
+    .book-title {
+        font-size: 13px;
+        height: 36px;
+    }
+
+    .book-author {
+        font-size: 12px;
+    }
+
+    .book-price {
+        font-size: 14px;
+    }
+
+    .add-to-cart {
+        padding: 8px;
+        font-size: 12px;
+    }
+}

@@ -639,15 +639,22 @@ function addTopNav() {
 
                 <!-- User Menu -->
                 <div class="user-menu">
-                    <a href="nguoidung.html" class="user-button">
-                        <i class="fa fa-user"></i>
-                        <span>${getCurrentUser()?.username}</span>
-                    </a>
-                    <div class="dropdown-menu">
-                        <a href="nguoidung.html"><i class="fa fa-user-circle"></i> Tài khoản của tôi</a>
-                        <a href="donhang.html"><i class="fa fa-shopping-bag"></i> Đơn hàng</a>
-                        <a href="javascript:void(0)" onclick="logOut()"><i class="fa fa-sign-out"></i> Đăng xuất</a>
-                    </div>
+                    ${getCurrentUser() ? `
+                        <a href="nguoidung.html" class="user-button">
+                            <i class="fa fa-user"></i>
+                            <span>${getCurrentUser().username}</span>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a href="nguoidung.html"><i class="fa fa-user-circle"></i> Tài khoản của tôi</a>
+                            <a href="donhang.html"><i class="fa fa-shopping-bag"></i> Đơn hàng</a>
+                            <a href="javascript:void(0)" onclick="logOut()"><i class="fa fa-sign-out"></i> Đăng xuất</a>
+                        </div>
+                    ` : `
+                        <a href="javascript:void(0)" onclick="showTaiKhoan(true)" class="user-button">
+                            <i class="fa fa-user"></i>
+                            <span>Đăng nhập/Đăng ký</span>
+                        </a>
+                    `}
                 </div>
             </div>
         </div>
