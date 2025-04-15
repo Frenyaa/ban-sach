@@ -546,108 +546,74 @@ function addProduct(p, ele, returnString) {
 
 // Thêm topnav vào trang
 function addTopNav() {
-    var currentUser = getCurrentUser();
-    var topnav = document.createElement('div');
-    topnav.className = 'topnav';
-    
-    // Nếu chưa đăng nhập, hiển thị nút đăng nhập nhân viên
-    var accountHtml = !currentUser ? 
-        `<div class="account">
-            <a href="dangnhapnhanvien.html"><i class="fa fa-user"></i> Đăng nhập nhân viên</a>
-        </div>` :
-        `<div class="account">
-            <a onclick="checkTaiKhoan()">
-                <i class="fa fa-user"></i> 
-                <span class="hide-if-logged-in"> Tài khoản </span>
-                <span class="show-if-logged-in"> ${currentUser.username} </span>
-            </a>
-        </div>`;
+    document.write(`
+    <nav class="navbar">
+        <div class="nav-container">
+            <!-- Logo -->
+            <div class="logo">
+                <a href="index.html">
+                    <img src="img/logo.png" alt="Thế Giới Sách Logo">
+                    <span>Thế Giới Sách</span>
+                </a>
+            </div>
 
-    topnav.innerHTML = `
-        <div class="container">
-            <div class="menu">
-                <a href="index.html" class="home" title="Trang chủ">
-                    <i class="fa fa-home"></i> Trang chủ
-                </a>
-                <a href="#" class="news" title="Tin tức">
-                    <i class="fa fa-newspaper-o"></i> Tin tức
-                </a>
-                <a href="#" class="promotion" title="Khuyến mãi">
-                    <i class="fa fa-gift"></i> Khuyến mãi
-                </a>
-                <a href="#" class="intro" title="Giới thiệu">
-                    <i class="fa fa-info-circle"></i> Giới thiệu
-                </a>
-                <a href="#" class="contact" title="Liên hệ">
-                    <i class="fa fa-phone"></i> Liên hệ
-                </a>
+            <!-- Menu chính -->
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active">Trang chủ</a></li>
+                <li class="dropdown">
+                    <a href="#">Thể loại <i class="fa fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Văn học</a></li>
+                        <li><a href="#">Kinh tế</a></li>
+                        <li><a href="#">Kỹ năng sống</a></li>
+                        <li><a href="#">Thiếu nhi</a></li>
+                        <li><a href="#">Sách giáo khoa</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Sách mới</a></li>
+                <li><a href="#">Khuyến mãi</a></li>
+                <li><a href="#">Tin tức</a></li>
+                <li><a href="#">Liên hệ</a></li>
+            </ul>
+
+            <!-- Thanh tìm kiếm -->
+            <div class="search-bar">
+                <input type="text" placeholder="Tìm kiếm sách...">
+                <button type="submit"><i class="fa fa-search"></i></button>
             </div>
-            <div class="contact">
-                <a href="tel:+84987654321"><i class="fa fa-phone"></i> +84 987 654 321</a>
-                <a href="mailto:contact@thegioididong.com"><i class="fa fa-envelope"></i> contact@thegioididong.com</a>
+
+            <!-- Giỏ hàng và đăng nhập/đăng ký -->
+            <div class="nav-actions">
+                <a href="#" class="cart-icon">
+                    <i class="fa fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+                <div class="auth-buttons">
+                    <a href="#" class="login-btn" onclick="showTaiKhoan(true)">Đăng nhập</a>
+                    <span class="separator">/</span>
+                    <a href="#" class="register-btn" onclick="showTaiKhoan(true)">Đăng ký</a>
+                </div>
             </div>
-            ${accountHtml}
         </div>
-    `;
-    document.body.insertBefore(topnav, document.body.firstChild);
+    </nav>
+    `);
+
+    // Kiểm tra trạng thái đăng nhập và cập nhật hiển thị
+    var currentUser = getCurrentUser();
+    if (currentUser) {
+        // Nếu đã đăng nhập, hiện giỏ hàng
+        document.querySelector('.cart-icon').style.display = 'flex';
+        // Cập nhật số lượng trong giỏ hàng
+        document.querySelector('.cart-count').innerHTML = getTongSoLuongSanPhamTrongGioHang(currentUser);
+    } else {
+        // Nếu chưa đăng nhập, ẩn giỏ hàng
+        document.querySelector('.cart-icon').style.display = 'none';
+    }
 }
 
-// Thêm header
+// Bỏ hàm addHeader vì đã gộp vào addTopNav
 function addHeader() {
-    document.write(`        
-	<div class="header group">
-        <div class="logo">
-            <a href="index.html">
-                <img src="img/trangchu.png" alt="Trang chủ Smartphone Store" title="Trang chủ Smartphone Store">
-            </a>
-        </div> <!-- End Logo -->
-
-        <div class="content">
-            <div class="search-header" style="position: relative; left: 162px; top: 1px;">
-                <form class="input-search" method="get" action="index.html">
-                    <div class="autocomplete">
-                        <input id="search-box" name="search" autocomplete="off" type="text" placeholder="Nhập từ khóa tìm kiếm...">
-                        <button type="submit">
-                            <i class="fa fa-search"></i>
-                            Tìm kiếm
-                        </button>
-                    </div>
-                </form> <!-- End Form search -->
-                <div class="tags">
-                  
-                </div>
-            </div> <!-- End Search header -->
-
-            <div class="tools-member">
-                <div class="member">
-                    <a onclick="checkTaiKhoan()">
-                        <i class="fa fa-user"></i>
-                        Tài khoản
-                    </a>
-                    <div class="menuMember hide">
-                        <a href="nguoidung.html">Trang người dùng</a>
-                        <a onclick="if(window.confirm('Xác nhận đăng xuất ?')) logOut();">Đăng xuất</a>
-                    </div>
-
-                </div> <!-- End Member -->
-
-                <div class="cart">
-                    <a href="giohang.html">
-                        <i class="fa fa-shopping-cart"></i>
-                        <span>Giỏ hàng</span>
-                        <span class="cart-number"></span>
-                    </a>
-                </div> <!-- End Cart -->
-
-                <!--<div class="check-order">
-                    <a>
-                        <i class="fa fa-truck"></i>
-                        <span>Đơn hàng</span>
-                    </a>
-                </div> -->
-            </div><!-- End Tools Member -->
-        </div> <!-- End Content -->
-    </div> <!-- End Header -->`)
+    // Không cần thêm gì vì đã có trong addTopNav
 }
 
 function addFooter() {
