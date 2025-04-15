@@ -2,24 +2,40 @@ window.onload = function () {
 	khoiTao();
 
 	// Thêm hình vào banner
-	addBanner("img/banners/banner0.png", "img/banners/banner0.png");
-	var numBanner = 9; // Số lượng hình banner
-	for (var i = 1; i <= numBanner; i++) {
-		var linkimg = "img/banners/banner" + i + ".png";
-		addBanner(linkimg, linkimg);
-	}
+	addBanner("img/banners/banner-sach1.jpg", "#");
+	addBanner("img/banners/banner-sach2.jpg", "#");
+	addBanner("img/banners/banner-sach3.jpg", "#");
+	addBanner("img/banners/banner-sach4.jpg", "#");
+	addBanner("img/banners/banner-sach5.jpg", "#");
 
-	// Khởi động thư viện hỗ trợ banner - chỉ chạy khi đã tạo hình trong banner
+	// Khởi động thư viện hỗ trợp banner
 	var owl = $('.owl-carousel');
 	owl.owlCarousel({
-		items: 1.5,
-		margin: 100,
+		items: 1,
+		margin: 0,
 		center: true,
 		loop: true,
 		smartSpeed: 450,
 		autoplay: true,
-		autoplayTimeout: 3500
+		autoplayTimeout: 3500,
+		nav: true,
+		dots: true,
+		responsive: {
+			0: {
+				items: 1
+			},
+			600: {
+				items: 1
+			},
+			1000: {
+				items: 1
+			}
+		}
 	});
+
+	// Thêm danh sách nhà xuất bản
+	var publishers = ["NXB Kim Đồng", "NXB Trẻ", "NXB Tổng hợp TPHCM", "NXB Thanh Niên", "NXB Giáo dục"];
+	for (var p of publishers) addCompany("img/publishers/" + p + ".jpg", p);
 
 	// autocomplete cho khung tim kiem
 	autocomplete(document.getElementById('search-box'), list_products);
