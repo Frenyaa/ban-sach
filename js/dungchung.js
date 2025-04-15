@@ -563,129 +563,71 @@ function addProduct(p, ele, returnString) {
 // Thêm topnav vào trang
 function addTopNav() {
     document.write(`
-    <nav class="navbar">
-        <div class="nav-container">
-            <!-- Logo -->
-            <div class="logo">
-                <a href="index.html">
-                    <img src="img/logo.png" alt="Thế Giới Sách">
-                    <span>Thế Giới Sách</span>
-                </a>
-            </div>
+    <div class="top-nav group">
+        <section>
+            <div class="social-top-nav">
+                <a class="fa fa-facebook"></a>
+                <a class="fa fa-twitter"></a>
+                <a class="fa fa-google"></a>
+                <a class="fa fa-youtube"></a>
+            </div> <!-- End Social Topnav -->
 
-            <!-- Menu chính -->
-            <ul class="nav-menu">
-                <li>
-                    <a href="index.html" class="active">
-                        <i class="fa fa-home"></i>
-                        <span>Trang chủ</span>
-                    </a>
-                </li>
-                <li class="dropdown">
-                    <a href="#">
-                        <i class="fa fa-book"></i>
-                        <span>Thể loại</span>
-                        <i class="fa fa-chevron-down"></i>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#"><i class="fa fa-bookmark"></i> Văn học</a></li>
-                        <li><a href="#"><i class="fa fa-line-chart"></i> Kinh tế</a></li>
-                        <li><a href="#"><i class="fa fa-lightbulb-o"></i> Kỹ năng sống</a></li>
-                        <li><a href="#"><i class="fa fa-child"></i> Thiếu nhi</a></li>
-                        <li><a href="#"><i class="fa fa-book"></i> Sách giáo khoa</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fa fa-star"></i>
-                        <span>Sách mới</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fa fa-gift"></i>
-                        <span>Khuyến mãi</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fa fa-newspaper-o"></i>
-                        <span>Tin tức</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fa fa-phone"></i>
-                        <span>Liên hệ</span>
-                    </a>
-                </li>
-            </ul>
+            <ul class="top-nav-quicklink flexContain">
+                <li><a href="index.html"><i class="fa fa-home"></i> Trang chủ</a></li>
+                <li><a href=""><i class="fa fa-newspaper-o"></i> Tin tức</a></li>
+                <li><a href=""><i class="fa fa-handshake-o"></i> Tuyển dụng</a></li>
+                <li><a href=""><i class="fa fa-info-circle"></i> Giới thiệu</a></li>
+                <li><a href=""><i class="fa fa-phone"></i> Liên hệ</a></li>
+            </ul> <!-- End Quick link -->
+        </section><!-- End Section -->
+    </div><!-- End Top Nav  -->
 
-            <!-- Thanh tìm kiếm -->
-            <div class="search-bar">
-                <input type="text" placeholder="Tìm kiếm sách...">
-                <button type="submit"><i class="fa fa-search"></i></button>
-            </div>
+    <div class="header group">
+        <div class="logo">
+            <a href="index.html">
+                <img src="img/logo.png" alt="Thế Giới Sách" title="Thế Giới Sách">
+            </a>
+        </div> <!-- End Logo -->
 
-            <!-- Giỏ hàng và đăng nhập -->
-            <div class="nav-actions">
-                <a href="giohang.html" class="cart-icon">
-                    <i class="fa fa-shopping-cart"></i>
-                    <span class="cart-count">0</span>
-                </a>
-                <!-- Auth Buttons -->
-                <div class="auth-buttons">
+        <div class="content">
+            <div class="search-header">
+                <form class="input-search" method="get" action="index.html">
+                    <div class="autocomplete">
+                        <input id="search-box" name="search" autocomplete="off" type="text" placeholder="Nhập từ khóa tìm kiếm...">
+                        <button type="submit">
+                            <i class="fa fa-search"></i>
+                            Tìm kiếm
+                        </button>
+                    </div>
+                </form> <!-- End Form search -->
+                <div class="tags">
+                    <strong>Từ khóa: </strong>
                 </div>
+            </div> <!-- End Search header -->
 
-                <!-- User Menu -->
-                <div class="user-menu">
-                    ${getCurrentUser() ? `
-                        <a href="nguoidung.html" class="user-button">
-                            <i class="fa fa-user"></i>
-                            <span>${getCurrentUser().username}</span>
-                        </a>
-                        <div class="dropdown-menu">
-                            <a href="nguoidung.html"><i class="fa fa-user-circle"></i> Tài khoản của tôi</a>
-                            <a href="donhang.html"><i class="fa fa-shopping-bag"></i> Đơn hàng</a>
-                            <a href="javascript:void(0)" onclick="logOut()"><i class="fa fa-sign-out"></i> Đăng xuất</a>
-                        </div>
-                    ` : `
-                        <a href="javascript:void(0)" onclick="showTaiKhoan(true)" class="user-button">
-                            <i class="fa fa-user"></i>
-                            <span>Đăng nhập/Đăng ký</span>
-                        </a>
-                    `}
-                </div>
-            </div>
-        </div>
-    </nav>
+            <div class="tools-member">
+                <div class="member">
+                    <a onclick="checkTaiKhoan()" id="btnTaiKhoan">
+                        <i class="fa fa-user"></i>
+                        <span class="hide-if-mobile">Tài khoản</span>
+                    </a>
+                    <div class="menuMember hide">
+                        <a href="nguoidung.html">Trang người dùng</a>
+                        <a onclick="checkDangXuat();">Đăng xuất</a>
+                    </div>
+                </div> <!-- End Member -->
+
+                <div class="cart">
+                    <a href="giohang.html">
+                        <i class="fa fa-shopping-cart"></i>
+                        <span>Giỏ hàng</span>
+                        <span class="cart-number"></span>
+                    </a>
+                </div> <!-- End Cart -->
+            </div><!-- End Tools Member -->
+        </div> <!-- End Content -->
+    </div> <!-- End Header -->
     `);
-
-    // Kiểm tra trạng thái đăng nhập và cập nhật hiển thị
-    var currentUser = getCurrentUser();
-    if (currentUser) {
-        // Nếu đã đăng nhập, hiện giỏ hàng và cập nhật menu thành viên
-        document.querySelector('.cart-icon').style.display = 'flex';
-        document.querySelector('.cart-count').innerHTML = getTongSoLuongSanPhamTrongGioHang(currentUser);
-        
-        // Ẩn nút đăng nhập/đăng ký và hiện menu thành viên
-        document.querySelector('.auth-buttons').style.display = 'none';
-        document.querySelector('.nav-actions').innerHTML += `
-            <div class="user-menu">
-                <a href="nguoidung.html" class="user-button">
-                    <i class="fa fa-user"></i>
-                    <span>${currentUser.username}</span>
-                </a>
-                <div class="dropdown-menu">
-                    <a href="nguoidung.html"><i class="fa fa-user-circle"></i> Tài khoản của tôi</a>
-                    <a href="donhang.html"><i class="fa fa-shopping-bag"></i> Đơn hàng</a>
-                    <a href="javascript:void(0)" onclick="logOut()"><i class="fa fa-sign-out"></i> Đăng xuất</a>
-                </div>
-            </div>`;
-    } else {
-        // Nếu chưa đăng nhập, ẩn giỏ hàng
-        document.querySelector('.cart-icon').style.display = 'none';
-    }
 }
 
 // Bỏ hàm addHeader vì đã gộp vào addTopNav
