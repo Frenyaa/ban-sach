@@ -2,11 +2,11 @@ window.onload = function () {
 	khoiTao();
 
 	// Thêm hình vào banner
-	addBanner("https://salt.tikicdn.com/ts/banner/91/3c/0d/33b727f5ee0e2c1d86b7f6f06e71c9f6.png", "#");
-	addBanner("https://salt.tikicdn.com/ts/banner/0b/16/a3/4c4c3d3a8c097d2528076bb43c3c1e18.png", "#");
-	addBanner("https://salt.tikicdn.com/ts/banner/e5/0b/bd/a9a8db172e128d0c9ae5657589dd0cd1.png", "#");
-	addBanner("https://salt.tikicdn.com/ts/banner/25/9a/e8/ae4edb1c2d94dd5c91b65e5851da252e.png", "#");
-	addBanner("https://salt.tikicdn.com/ts/banner/d5/19/c4/ad7e755e1d28aeae1dc8c1c0c2c3e265.png", "#");
+	addBanner("img/banners/banner0.png", "#");
+	addBanner("img/banners/banner1.png", "#");
+	addBanner("img/banners/banner2.png", "#");
+	addBanner("img/banners/banner3.png", "#");
+	addBanner("img/banners/banner4.png", "#");
 
 	// Khởi động thư viện hỗ trợp banner
 	var owl = $('.owl-carousel');
@@ -36,7 +36,7 @@ window.onload = function () {
 	// Thêm danh sách nhà xuất bản
 	var publishers = ["NXB Kim Đồng", "NXB Trẻ", "NXB Tổng hợp TPHCM", "NXB Thanh Niên", "NXB Giáo dục"];
 	for (var p of publishers) {
-		addCompany("https://book.sachgiai.com/uploads/publishers/nxb-" + p.toLowerCase().replace(/\s+/g, '-') + ".jpg", p);
+		addCompany("img/publishers/logo.png", p);
 	}
 
 	// autocomplete cho khung tim kiem
