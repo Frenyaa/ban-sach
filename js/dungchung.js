@@ -568,7 +568,7 @@ function addTopNav() {
             <!-- Logo -->
             <div class="logo">
                 <a href="index.html">
-                    <img src="img/logo.png" alt="Thế Giới Sách Logo">
+                    <img src="img/logo.jpg" alt="Thế Giới Sách">
                     <span>Thế Giới Sách</span>
                 </a>
             </div>
@@ -598,17 +598,19 @@ function addTopNav() {
                 <button type="submit"><i class="fa fa-search"></i></button>
             </div>
 
-            <!-- Giỏ hàng và đăng nhập/đăng ký -->
+            <!-- Giỏ hàng và đăng nhập -->
             <div class="nav-actions">
                 <a href="giohang.html" class="cart-icon">
                     <i class="fa fa-shopping-cart"></i>
                     <span class="cart-count">0</span>
                 </a>
-                <div class="menuMember">
-                    <a onclick="showTaiKhoan(true)">
-                        <div class="info">
-                            <span>Đăng nhập</span>
-                        </div>
+                <!-- Auth Buttons -->
+                <div class="auth-buttons">
+                    <a href="javascript:void(0)" onclick="showTaiKhoan(true)" class="login-btn">
+                        <i class="fa fa-sign-in"></i> Đăng nhập
+                    </a>
+                    <a href="javascript:void(0)" onclick="showTaiKhoan(true)" class="register-btn">
+                        <i class="fa fa-user-plus"></i> Đăng ký
                     </a>
                 </div>
             </div>
@@ -623,18 +625,20 @@ function addTopNav() {
         document.querySelector('.cart-icon').style.display = 'flex';
         document.querySelector('.cart-count').innerHTML = getTongSoLuongSanPhamTrongGioHang(currentUser);
         
-        // Cập nhật menu thành viên
-        document.querySelector('.menuMember').innerHTML = `
-            <a href="nguoidung.html">
-                <div class="info">
+        // Ẩn nút đăng nhập/đăng ký và hiện menu thành viên
+        document.querySelector('.auth-buttons').style.display = 'none';
+        document.querySelector('.nav-actions').innerHTML += `
+            <div class="user-menu">
+                <a href="nguoidung.html" class="user-button">
+                    <i class="fa fa-user"></i>
                     <span>${currentUser.username}</span>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="nguoidung.html">Tài khoản của tôi</a>
+                    <a href="donhang.html">Đơn hàng</a>
+                    <a href="javascript:void(0)" onclick="logOut()">Đăng xuất</a>
                 </div>
-            </a>
-            <a onclick="logOut()">
-                <div class="info">
-                    <span>Đăng xuất</span>
-                </div>
-            </a>`;
+            </div>`;
     } else {
         // Nếu chưa đăng nhập, ẩn giỏ hàng
         document.querySelector('.cart-icon').style.display = 'none';
@@ -655,8 +659,8 @@ function addFooter() {
 
     <!-- ============== Footer ============= -->
     <div class="copy-right">
-        <p><a href="index.html">LDD Phone Store</a> - All rights reserved © 2021 - Designed by
-            <span style="color: #eee; font-weight: bold">group 15th</span></p>
+        <p><a href="index.html">Thế Giới Sách</a> - All rights reserved © 2024 - Designed by
+            <span style="color: #eee; font-weight: bold">Frenya</span></p>
     </div>`);
 }
 
