@@ -568,7 +568,7 @@ function addTopNav() {
             <!-- Logo -->
             <div class="logo">
                 <a href="index.html">
-                    <img src="img/logo.jpg" alt="Thế Giới Sách">
+                    <img src="img/logo.png" alt="Thế Giới Sách">
                     <span>Thế Giới Sách</span>
                 </a>
             </div>
@@ -635,12 +635,19 @@ function addTopNav() {
                 </a>
                 <!-- Auth Buttons -->
                 <div class="auth-buttons">
-                    <a href="javascript:void(0)" onclick="showTaiKhoan(true)" class="login-btn">
-                        <i class="fa fa-sign-in"></i> Đăng nhập
+                </div>
+
+                <!-- User Menu -->
+                <div class="user-menu">
+                    <a href="nguoidung.html" class="user-button">
+                        <i class="fa fa-user"></i>
+                        <span>${getCurrentUser()?.username}</span>
                     </a>
-                    <a href="javascript:void(0)" onclick="showTaiKhoan(true)" class="register-btn">
-                        <i class="fa fa-user-plus"></i> Đăng ký
-                    </a>
+                    <div class="dropdown-menu">
+                        <a href="nguoidung.html"><i class="fa fa-user-circle"></i> Tài khoản của tôi</a>
+                        <a href="donhang.html"><i class="fa fa-shopping-bag"></i> Đơn hàng</a>
+                        <a href="javascript:void(0)" onclick="logOut()"><i class="fa fa-sign-out"></i> Đăng xuất</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -680,7 +687,6 @@ function addHeader() {
     <div class="header group">
         <div class="logo">
             <a href="index.html">
-                <img src="img/logo.png" alt="Thế Giới Sách" title="Thế Giới Sách"/>
             </a>
         </div> <!-- End Logo -->
 
