@@ -289,6 +289,8 @@ function signUp(form) {
 
 function logOut() {
     window.localStorage.removeItem('CurrentUser');
+    window.localStorage.removeItem('admin');
+    window.localStorage.removeItem('staff');
     location.reload();
 }
 
@@ -598,14 +600,16 @@ function addTopNav() {
 
             <!-- Giỏ hàng và đăng nhập/đăng ký -->
             <div class="nav-actions">
-                <a href="#" class="cart-icon">
+                <a href="giohang.html" class="cart-icon">
                     <i class="fa fa-shopping-cart"></i>
                     <span class="cart-count">0</span>
                 </a>
-                <div class="auth-buttons">
-                    <a href="#" class="login-btn" onclick="showTaiKhoan(true)">Đăng nhập</a>
-                    <span class="separator">/</span>
-                    <a href="#" class="register-btn" onclick="showTaiKhoan(true)">Đăng ký</a>
+                <div class="menuMember">
+                    <a onclick="showTaiKhoan(true)">
+                        <div class="info">
+                            <span>Đăng nhập</span>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -615,10 +619,22 @@ function addTopNav() {
     // Kiểm tra trạng thái đăng nhập và cập nhật hiển thị
     var currentUser = getCurrentUser();
     if (currentUser) {
-        // Nếu đã đăng nhập, hiện giỏ hàng
+        // Nếu đã đăng nhập, hiện giỏ hàng và cập nhật menu thành viên
         document.querySelector('.cart-icon').style.display = 'flex';
-        // Cập nhật số lượng trong giỏ hàng
         document.querySelector('.cart-count').innerHTML = getTongSoLuongSanPhamTrongGioHang(currentUser);
+        
+        // Cập nhật menu thành viên
+        document.querySelector('.menuMember').innerHTML = `
+            <a href="nguoidung.html">
+                <div class="info">
+                    <span>${currentUser.username}</span>
+                </div>
+            </a>
+            <a onclick="logOut()">
+                <div class="info">
+                    <span>Đăng xuất</span>
+                </div>
+            </a>`;
     } else {
         // Nếu chưa đăng nhập, ẩn giỏ hàng
         document.querySelector('.cart-icon').style.display = 'none';
