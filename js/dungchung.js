@@ -575,21 +575,50 @@ function addTopNav() {
 
             <!-- Menu chính -->
             <ul class="nav-menu">
-                <li><a href="index.html" class="active">Trang chủ</a></li>
+                <li>
+                    <a href="index.html" class="active">
+                        <i class="fa fa-home"></i>
+                        <span>Trang chủ</span>
+                    </a>
+                </li>
                 <li class="dropdown">
-                    <a href="#">Thể loại <i class="fa fa-chevron-down"></i></a>
+                    <a href="#">
+                        <i class="fa fa-book"></i>
+                        <span>Thể loại</span>
+                        <i class="fa fa-chevron-down"></i>
+                    </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Văn học</a></li>
-                        <li><a href="#">Kinh tế</a></li>
-                        <li><a href="#">Kỹ năng sống</a></li>
-                        <li><a href="#">Thiếu nhi</a></li>
-                        <li><a href="#">Sách giáo khoa</a></li>
+                        <li><a href="#"><i class="fa fa-bookmark"></i> Văn học</a></li>
+                        <li><a href="#"><i class="fa fa-line-chart"></i> Kinh tế</a></li>
+                        <li><a href="#"><i class="fa fa-lightbulb-o"></i> Kỹ năng sống</a></li>
+                        <li><a href="#"><i class="fa fa-child"></i> Thiếu nhi</a></li>
+                        <li><a href="#"><i class="fa fa-book"></i> Sách giáo khoa</a></li>
                     </ul>
                 </li>
-                <li><a href="#">Sách mới</a></li>
-                <li><a href="#">Khuyến mãi</a></li>
-                <li><a href="#">Tin tức</a></li>
-                <li><a href="#">Liên hệ</a></li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-star"></i>
+                        <span>Sách mới</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-gift"></i>
+                        <span>Khuyến mãi</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-newspaper-o"></i>
+                        <span>Tin tức</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-phone"></i>
+                        <span>Liên hệ</span>
+                    </a>
+                </li>
             </ul>
 
             <!-- Thanh tìm kiếm -->
@@ -634,9 +663,9 @@ function addTopNav() {
                     <span>${currentUser.username}</span>
                 </a>
                 <div class="dropdown-menu">
-                    <a href="nguoidung.html">Tài khoản của tôi</a>
-                    <a href="donhang.html">Đơn hàng</a>
-                    <a href="javascript:void(0)" onclick="logOut()">Đăng xuất</a>
+                    <a href="nguoidung.html"><i class="fa fa-user-circle"></i> Tài khoản của tôi</a>
+                    <a href="donhang.html"><i class="fa fa-shopping-bag"></i> Đơn hàng</a>
+                    <a href="javascript:void(0)" onclick="logOut()"><i class="fa fa-sign-out"></i> Đăng xuất</a>
                 </div>
             </div>`;
     } else {

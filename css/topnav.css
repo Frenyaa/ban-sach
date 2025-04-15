@@ -119,6 +119,9 @@
 }
 
 .nav-menu li a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     color: #333;
     text-decoration: none;
     font-weight: 500;
@@ -127,10 +130,53 @@
     transition: all 0.3s ease;
 }
 
+.nav-menu li a i {
+    font-size: 16px;
+    width: 20px;
+    text-align: center;
+}
+
+.nav-menu li a span {
+    font-size: 14px;
+}
+
 .nav-menu li a:hover,
 .nav-menu li a.active {
     color: #3498db;
     background: rgba(52, 152, 219, 0.1);
+}
+
+.nav-menu .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-radius: 4px;
+    padding: 8px 0;
+    min-width: 200px;
+    display: none;
+    z-index: 1000;
+}
+
+.nav-menu .dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.nav-menu .dropdown-menu a {
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-menu .dropdown-menu a i {
+    width: 20px;
+    text-align: center;
+}
+
+.nav-menu .dropdown-menu a:hover {
+    background: #f8f9fa;
 }
 
 /* Search Bar */
@@ -329,5 +375,24 @@
     .auth-buttons .register-btn {
         width: 100%;
         justify-content: center;
+    }
+    
+    .nav-menu {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .nav-menu .dropdown-menu {
+        position: static;
+        box-shadow: none;
+        display: none;
+    }
+    
+    .nav-menu .dropdown:hover .dropdown-menu {
+        display: none;
+    }
+    
+    .nav-menu .dropdown.active .dropdown-menu {
+        display: block;
     }
 }
