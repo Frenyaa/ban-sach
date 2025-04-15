@@ -763,3 +763,345 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+
+/* Banner Sách Mới */
+.banner-sach-moi {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    margin: 20px 0;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.banner-sach-moi .owl-carousel {
+    height: 100%;
+}
+
+.banner-sach-moi .owl-carousel .item {
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.banner-sach-moi .owl-carousel .item img {
+    max-height: 300px;
+    width: auto;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.banner-sach-moi .owl-carousel .item img:hover {
+    transform: scale(1.05);
+}
+
+.banner-sach-moi .owl-nav {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    transform: translateY(-50%);
+}
+
+.banner-sach-moi .owl-prev,
+.banner-sach-moi .owl-next {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: rgba(255,255,255,0.9) !important;
+    border-radius: 50% !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.banner-sach-moi .owl-prev {
+    left: 20px;
+}
+
+.banner-sach-moi .owl-next {
+    right: 20px;
+}
+
+/* Nút lọc */
+.filter-buttons {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+    justify-content: center;
+}
+
+.filter-button {
+    padding: 10px 20px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    color: #333;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.filter-button:hover {
+    background: #f8f9fa;
+    border-color: #3498db;
+    color: #3498db;
+}
+
+.filter-button i {
+    font-size: 14px;
+}
+
+.filter-button.active {
+    background: #3498db;
+    border-color: #3498db;
+    color: #fff;
+}
+
+/* Dropdown cho các bộ lọc */
+.filter-dropdown {
+    position: relative;
+}
+
+.filter-dropdown .dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #fff;
+    min-width: 200px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: 4px;
+    padding: 8px 0;
+    display: none;
+    z-index: 1000;
+}
+
+.filter-dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.filter-dropdown .dropdown-content a {
+    display: block;
+    padding: 8px 16px;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.filter-dropdown .dropdown-content a:hover {
+    background-color: #f5f5f5;
+}
+
+/* Main Banner */
+.main-banner {
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.main-banner .owl-carousel {
+    height: 100%;
+}
+
+.main-banner .owl-carousel .item {
+    height: 400px;
+}
+
+.main-banner .owl-carousel .item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Promo Banner */
+.promo-banner {
+    width: 100%;
+    margin: 0;
+    background: #000;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.promo-banner .content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    color: #fff;
+}
+
+.promo-banner .discount {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff0000;
+}
+
+.promo-banner .text {
+    font-size: 18px;
+}
+
+/* Category Menu */
+.category-menu {
+    background: #f8f9fa;
+    padding: 15px 0;
+    margin: 20px 0;
+    border-radius: 8px;
+}
+
+.category-menu .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.menu-list {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+}
+
+.menu-list li a {
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.menu-list li a:hover,
+.menu-list li a.active {
+    background: #3498db;
+    color: white;
+}
+
+/* Book Sections */
+.section-title {
+    text-align: center;
+    margin: 40px 0 20px;
+}
+
+.section-title h2 {
+    font-size: 24px;
+    color: #2c3e50;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+.section-title h2:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: #3498db;
+}
+
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.book-item {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.book-item:hover {
+    transform: translateY(-5px);
+}
+
+.book-item img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.book-info {
+    padding: 15px;
+}
+
+.book-info h3 {
+    margin: 0 0 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+.book-price {
+    color: #e74c3c;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.book-price .original-price {
+    color: #999;
+    text-decoration: line-through;
+    font-size: 14px;
+    margin-right: 8px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .menu-list {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    
+    .book-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+}
+
+/* Black Friday Banner */
+.black-friday-banner {
+    background: #000;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.black-friday-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    animation: shine 2s infinite;
+}
+
+@keyframes shine {
+    to {
+        left: 100%;
+    }
+}
+
+.black-friday-banner .discount {
+    color: #ff0000;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+.black-friday-banner .text {
+    font-size: 18px;
+    font-weight: 500;
+}

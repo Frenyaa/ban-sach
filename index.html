@@ -47,59 +47,113 @@
 	<section>
 		<script> addHeader(); </script>
 
-		<div class="banner">
-			<div class="owl-carousel owl-theme"></div>
-		</div> <!-- End Banner -->
-
-		<br>
-		<div class="companyMenu group flexContain"></div>
-
-		<div class="flexContain">
-
-			<div class="pricesRangeFilter dropdown">
-				<button class="dropbtn">Giá tiền</button>
-				<div class="dropdown-content"></div>
+		<!-- Main Banner -->
+		<div class="main-banner">
+			<div class="owl-carousel">
+				<div class="item">
+					<img src="img/banners/banner1.jpg" alt="Banner 1">
+				</div>
+				<div class="item">
+					<img src="img/banners/banner2.jpg" alt="Banner 2">
+				</div>
+				<div class="item">
+					<img src="img/banners/banner3.jpg" alt="Banner 3">
+				</div>
 			</div>
-
-			<div class="promosFilter dropdown">
-				<button class="dropbtn">Khuyến mãi</button>
-				<div class="dropdown-content"></div>
-			</div>
-
-			<div class="starFilter dropdown">
-				<button class="dropbtn">Số lượng sao</button>
-				<div class="dropdown-content"></div>
-			</div>
-
-			<div class="sortFilter dropdown">
-				<button class="dropbtn">Sắp xếp</button>
-				<div class="dropdown-content"></div>
-			</div>
-
-		</div> <!-- End khung chọn bộ lọc -->
-
-		<div class="choosedFilter flexContain">
-			<a id="deleteAllFilter" style="display: none;">
-				<h3>Xóa bộ lọc</h3>
-			</a>
-		</div> <!-- Những bộ lọc đã chọn -->
-		<hr>
-
-		<!-- Mặc định mới vào trang sẽ ẩn đi, nế có filter thì mới hiện lên -->
-		<div class="contain-products" style="display:none"> 
-			<div class="filterName">
-				<input type="text" placeholder="Lọc trong trang theo tên..." onkeyup="filterProductsName(this)">
-			</div> <!-- End FilterName -->
-
-			<ul id="products" class="homeproduct group flexContain">
-				<div id="khongCoSanPham">
-					<i class="fa fa-times-circle"></i>
-					Không có sản phẩm nào
-				</div> <!-- End Khong co san pham -->
-			</ul><!-- End products -->
-
-			<div class="pagination"></div>
 		</div>
+
+		<!-- Promo Banner -->
+		<div class="promo-banner">
+			<div class="content">
+				<span class="text">BLACK FRIDAY</span>
+				<span class="discount">GIẢM GIÁ 15%</span>
+				<span class="text">CHO TẤT CẢ SÁCH</span>
+			</div>
+		</div>
+
+		<!-- Category Menu -->
+		<div class="category-menu">
+			<div class="container">
+				<ul class="menu-list">
+					<li><a href="#" class="active">Tất cả</a></li>
+					<li><a href="#">Văn học</a></li>
+					<li><a href="#">Kinh tế</a></li>
+					<li><a href="#">Thiếu nhi</a></li>
+					<li><a href="#">Kỹ năng sống</a></li>
+				</ul>
+			</div>
+		</div>
+
+		<!-- New Books Section -->
+		<div class="new-books">
+			<div class="section-title">
+				<h2>Sách Mới</h2>
+			</div>
+			<div class="book-grid">
+				<!-- Book items will be added by JavaScript -->
+			</div>
+		</div>
+
+		<!-- Featured Books Section -->
+		<div class="featured-books">
+			<div class="section-title">
+				<h2>Sách Nổi Bật</h2>
+			</div>
+			<div class="book-grid">
+				<!-- Book items will be added by JavaScript -->
+			</div>
+		</div>
+
+		<!-- Nút lọc -->
+		<div class="filter-buttons">
+			<div class="filter-dropdown">
+				<button class="filter-button">
+					Giá tiền <i class="fa fa-chevron-down"></i>
+				</button>
+				<div class="dropdown-content pricesRangeFilter">
+					<!-- Filled by JavaScript -->
+				</div>
+			</div>
+
+			<div class="filter-dropdown">
+				<button class="filter-button">
+					Khuyến mãi <i class="fa fa-chevron-down"></i>
+				</button>
+				<div class="dropdown-content promosFilter">
+					<!-- Filled by JavaScript -->
+				</div>
+			</div>
+
+			<div class="filter-dropdown">
+				<button class="filter-button">
+					Đánh giá <i class="fa fa-chevron-down"></i>
+				</button>
+				<div class="dropdown-content starFilter">
+					<!-- Filled by JavaScript -->
+				</div>
+			</div>
+
+			<div class="filter-dropdown">
+				<button class="filter-button">
+					Sắp xếp <i class="fa fa-chevron-down"></i>
+				</button>
+				<div class="dropdown-content sortFilter">
+					<!-- Filled by JavaScript -->
+				</div>
+			</div>
+		</div>
+
+		<!-- Danh sách sản phẩm -->
+		<div class="contain-products">
+			<div class="filterName">
+				<h1>Tất cả sản phẩm</h1>
+			</div>
+			<ul id="products" class="homeproduct group flexContain">
+				<!-- Filled by JavaScript -->
+			</ul>
+		</div>
+
+		<div class="pagination"></div>
 
 		<!-- Div hiển thị khung sp hot, khuyến mãi, mới ra mắt ... -->
 		<div class="contain-khungSanPham" ></div>
