@@ -51,13 +51,16 @@
 		<div class="main-banner">
 			<div class="owl-carousel">
 				<div class="item">
-					<img src="img/banners/banner1.jpg" alt="Banner 1">
+					<img src="img/banners/banner1.png" alt="Banner 1">
 				</div>
 				<div class="item">
-					<img src="img/banners/banner2.jpg" alt="Banner 2">
+					<img src="img/banners/banner2.png" alt="Banner 2">
 				</div>
 				<div class="item">
-					<img src="img/banners/banner3.jpg" alt="Banner 3">
+					<img src="img/banners/banner3.png" alt="Banner 3">
+				</div>
+				<div class="item">
+					<img src="img/banners/banner4.png" alt="Banner 4">
 				</div>
 			</div>
 		</div>
@@ -65,7 +68,7 @@
 		<!-- Promo Banner -->
 		<div class="promo-banner">
 			<div class="content">
-				<span class="text">BLACK FRIDAY</span>
+				<img src="img/banners/blackFriday.gif" alt="Black Friday Sale" class="black-friday-gif">
 				<span class="discount">GIẢM GIÁ 15%</span>
 				<span class="text">CHO TẤT CẢ SÁCH</span>
 			</div>
@@ -157,6 +160,73 @@
 
 		<!-- Div hiển thị khung sp hot, khuyến mãi, mới ra mắt ... -->
 		<div class="contain-khungSanPham" ></div>
+
+		<!-- Auth Buttons -->
+		<div class="auth-buttons">
+			<a href="javascript:void(0)" onclick="showTaiKhoan(true)" class="login-btn">
+				<i class="fa fa-sign-in"></i> Đăng nhập
+			</a>
+			<a href="javascript:void(0)" onclick="showTaiKhoan(true)" class="register-btn">
+				<i class="fa fa-user-plus"></i> Đăng ký
+			</a>
+		</div>
+
+		<!-- Login/Register Form -->
+		<div class="containTaikhoan">
+			<div class="taikhoan">
+				<span class="close" onclick="showTaiKhoan(false)">&times;</span>
+				
+				<ul class="tab-group">
+					<li class="tab active"><a href="#login">Đăng nhập</a></li>
+					<li class="tab"><a href="#signup">Đăng ký</a></li>
+				</ul>
+
+				<div class="tab-content">
+					<div id="login">
+						<h1>Chào mừng trở lại!</h1>
+						<form onsubmit="return logIn(this);">
+							<div class="field-wrap">
+								<label>Tên đăng nhập<span class="req">*</span></label>
+								<input name="username" type="text" required autocomplete="off"/>
+							</div>
+							<div class="field-wrap">
+								<label>Mật khẩu<span class="req">*</span></label>
+								<input name="pass" type="password" required autocomplete="off"/>
+							</div>
+							<p class="forgot"><a href="#">Quên mật khẩu?</a></p>
+							<button type="submit" class="button">Đăng nhập</button>
+						</form>
+					</div>
+
+					<div id="signup">
+						<h1>Đăng ký tài khoản mới</h1>
+						<form onsubmit="return signUp(this);">
+							<div class="field-wrap">
+								<label>Họ<span class="req">*</span></label>
+								<input name="ho" type="text" required autocomplete="off"/>
+							</div>
+							<div class="field-wrap">
+								<label>Tên<span class="req">*</span></label>
+								<input name="ten" type="text" required autocomplete="off"/>
+							</div>
+							<div class="field-wrap">
+								<label>Email<span class="req">*</span></label>
+								<input name="email" type="email" required autocomplete="off"/>
+							</div>
+							<div class="field-wrap">
+								<label>Tên đăng nhập<span class="req">*</span></label>
+								<input name="newUser" type="text" required autocomplete="off"/>
+							</div>
+							<div class="field-wrap">
+								<label>Mật khẩu<span class="req">*</span></label>
+								<input name="newPass" type="password" required autocomplete="off"/>
+							</div>
+							<button type="submit" class="button">Đăng ký</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
 
 	</section> <!-- End Section -->
 
