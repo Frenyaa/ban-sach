@@ -373,10 +373,24 @@ function capNhat_ThongTin_CurrentUser() {
         const currentUser = getCurrentUser();
         console.log('Updating current user info:', currentUser);
         if (currentUser) {
+            // Hiển thị menu thành viên khi đã đăng nhập
             document.getElementsByClassName('menuMember')[0].innerHTML = `
                 <a href="nguoidung.html">
                     <div class="info">
                         <span>` + currentUser.username + `</span>
+                    </div>
+                </a>
+                <a onclick="logOut()">
+                    <div class="info">
+                        <span>Đăng xuất</span>
+                    </div>
+                </a>`;
+        } else {
+            // Hiển thị nút đăng nhập khi chưa đăng nhập
+            document.getElementsByClassName('menuMember')[0].innerHTML = `
+                <a onclick="showTaiKhoan(true)">
+                    <div class="info">
+                        <span>Đăng nhập</span>
                     </div>
                 </a>`;
         }
