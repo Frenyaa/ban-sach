@@ -567,3 +567,71 @@
 .navbar .user-menu a:hover {
     color: #007bff;
 }
+
+.main-banner {
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.banner-slider {
+    width: 100%;
+    position: relative;
+}
+
+.banner-slide {
+    width: 100%;
+}
+
+.banner-slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Owl Carousel Custom Styles */
+.owl-nav {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem;
+}
+
+.owl-nav button {
+    background: rgba(255, 255, 255, 0.8) !important;
+    width: 40px;
+    height: 40px;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.owl-nav button:hover {
+    background: #fff !important;
+}
+
+.owl-dots {
+    position: absolute;
+    bottom: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.owl-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5) !important;
+    transition: all 0.3s ease;
+}
+
+.owl-dot.active {
+    background: #fff !important;
+    transform: scale(1.2);
+}

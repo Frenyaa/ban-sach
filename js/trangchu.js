@@ -112,6 +112,79 @@ window.onload = function () {
 
 	// Thêm filter đã chọn
 	addAllChoosedFilter();
+
+	// Hiển thị sách mới
+	var newBooks = list_products.filter(p => p.promo.name === 'moiramat');
+	var newBooksHtml = '';
+	newBooks.slice(0, 4).forEach(book => {
+		newBooksHtml += `
+			<div class="book-item">
+				<div class="book-image">
+					<img src="${book.img}" alt="${book.name}">
+				</div>
+				<div class="book-info">
+					<h3>${book.name}</h3>
+					<div class="book-author">${book.info.tacgia}</div>
+					<div class="book-rating">
+						${'★'.repeat(book.star)}${'☆'.repeat(5-book.star)}
+						<span class="review-count">(${book.rateCount} đánh giá)</span>
+					</div>
+					<div class="book-price">${parseInt(book.price).toLocaleString('vi-VN')}đ</div>
+				</div>
+			</div>
+		`;
+	});
+	document.getElementById('new-books').innerHTML = newBooksHtml;
+
+	// Hiển thị sách nổi bật
+	var featuredBooks = list_products.filter(p => p.star >= 4 && p.rateCount > 20);
+	var featuredBooksHtml = '';
+	featuredBooks.slice(0, 4).forEach(book => {
+		featuredBooksHtml += `
+			<div class="book-item">
+				<div class="book-image">
+					<img src="${book.img}" alt="${book.name}">
+				</div>
+				<div class="book-info">
+					<h3>${book.name}</h3>
+					<div class="book-author">${book.info.tacgia}</div>
+					<div class="book-rating">
+						${'★'.repeat(book.star)}${'☆'.repeat(5-book.star)}
+						<span class="review-count">(${book.rateCount} đánh giá)</span>
+					</div>
+					<div class="book-price">${parseInt(book.price).toLocaleString('vi-VN')}đ</div>
+				</div>
+			</div>
+		`;
+	});
+	document.getElementById('featured-books').innerHTML = featuredBooksHtml;
+
+	// Hiển thị tất cả sản phẩm
+	var allProductsHtml = '';
+	list_products.forEach(book => {
+		allProductsHtml += `
+			<li class="sanPham">
+				<a href="chitietsanpham.html?${book.masp}">
+					<img src="${book.img}" alt="${book.name}">
+					<h3>${book.name}</h3>
+					<div class="price">
+						<strong>${parseInt(book.price).toLocaleString('vi-VN')}đ</strong>
+					</div>
+					<div class="ratingresult">
+						${'★'.repeat(book.star)}${'☆'.repeat(5-book.star)}
+						<span>${book.rateCount} đánh giá</span>
+					</div>
+					${book.promo.name === 'giamgia' ? 
+						`<label class="giamgia">
+							<i class="fa fa-bolt"></i> Giảm ${parseInt(book.promo.value).toLocaleString('vi-VN')}đ
+						</label>` : ''}
+					${book.promo.name === 'moiramat' ? 
+						`<label class="moiramat">Mới ra mắt</label>` : ''}
+				</a>
+			</li>
+		`;
+	});
+	document.getElementById('products').innerHTML = allProductsHtml;
 };
 
 var soLuongSanPhamMaxTrongMotTrang = 15;
