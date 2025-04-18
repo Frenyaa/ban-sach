@@ -1643,3 +1643,19 @@ footer {
 .search-header .input-search button:hover {
     background-color: #0056b3;
 }
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/banner.css">
+<script src="js/dungchung.js"></script>
+
+<div class="search-header">
+    <form class="input-search" method="get" action="index.html">
+        <div class="autocomplete">
+            <input id="search-box" name="search" autocomplete="off" type="text" placeholder="Nhập từ khóa tìm kiếm...">
+            <button type="submit">
+                <i class="fa fa-search"></i> Tìm kiếm
+            </button>
+        </div>
+    </form>
+</div>
