@@ -75,15 +75,21 @@
 	}
 
 .main-banner {
-    width: 100%;
-    margin-bottom: 2rem;
     position: relative;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
 }
 
 .banner-slider {
     width: 100%;
     height: 400px; /* Tăng chiều cao banner */
     overflow: hidden;
+}
+
+.banner-slider img {
+    width: 100%; /* Đảm bảo hình ảnh chiếm toàn bộ chiều rộng */
+    height: auto; /* Tự động điều chỉnh chiều cao */
 }
 
 .banner-slide {
@@ -102,11 +108,20 @@
     position: absolute;
     top: 50%;
     width: 100%;
-    transform: translateY(-50%);
     display: flex;
     justify-content: space-between;
+    transform: translateY(-50%);
     padding: 0 2rem;
     pointer-events: none;
+}
+
+.owl-nav .fa {
+    font-size: 24px;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
 }
 
 .owl-nav button {
@@ -132,12 +147,29 @@
 }
 
 .owl-dots {
+    text-align: center;
+    margin-top: 10px;
     position: absolute;
     bottom: 1rem;
     width: 100%;
     display: flex;
     justify-content: center;
     gap: 0.5rem;
+}
+
+.owl-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 5px;
+    background: #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.owl-dot.active {
+    background: #007bff;
 }
 
 .owl-dot {
@@ -186,3 +218,10 @@
     color: #333;
 }
 /* ======= End Banner ======== */
+
+/* Owl Carousel CSS */
+<link rel="stylesheet" href="js/owlcarousel/owl.carousel.min.css">
+<link rel="stylesheet" href="js/owlcarousel/owl.theme.default.min.css">
+
+<!-- Owl Carousel JS -->
+<script src="js/owlcarousel/owl.carousel.min.js"></script>

@@ -23,6 +23,8 @@
 			width: 100%;
 			height: 100%;
 			vertical-align: middle;
+			max-width: 150px; /* Giảm chiều rộng logo */
+			height: auto; /* Tự động điều chỉnh chiều cao */
 		}
 	/* ======= End logo ======== */
 

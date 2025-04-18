@@ -943,15 +943,15 @@ function setupAjaxHeaders(xhr) {
 
 $(document).ready(function () {
     $(".banner-slider").owlCarousel({
-        items: 1,
-        loop: true,
+        items: 1, // Hiển thị 1 banner mỗi lần
+        loop: true, // Lặp lại banner
         margin: 0,
-        nav: true,
-        dots: true,
-        autoplay: true,
-        autoplayTimeout: 5000,
-        autoplayHoverPause: true,
-        navText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>']
+        nav: true, // Hiển thị nút điều hướng
+        dots: true, // Hiển thị các chấm điều hướng
+        autoplay: true, // Tự động lướt
+        autoplayTimeout: 3000, // Thời gian giữa các lần lướt (3 giây)
+        autoplayHoverPause: true, // Dừng khi di chuột vào
+        navText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>'] // Nút điều hướng
     });
 
     // Dropdown functionality
