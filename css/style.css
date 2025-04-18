@@ -1438,3 +1438,148 @@ footer {
 .add-to-cart:hover {
     background: #0056b3;
 }
+
+/* Căn chỉnh banner */
+.main-banner {
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+
+.banner-slider img {
+    width: 100%;
+    height: auto;
+}
+
+/* Promo Banner */
+.promo-banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.promo-banner .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.promo-banner .black-friday-gif {
+    max-width: 200px;
+    margin-bottom: 10px;
+}
+
+.promo-banner .discount {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff0000;
+}
+
+.promo-banner .text {
+    font-size: 18px;
+}
+
+/* Category Menu */
+.category-menu {
+    background-color: #f8f8f8;
+    padding: 10px 0;
+}
+
+.category-menu .menu-list {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.category-menu .menu-list li {
+    margin: 0 15px;
+}
+
+.category-menu .menu-list a {
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+}
+
+.category-menu .menu-list a.active {
+    color: #007bff;
+}
+
+/* Filter Buttons */
+.filter-buttons {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.filter-dropdown {
+    position: relative;
+    margin: 0 10px;
+}
+
+.filter-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.filter-button i {
+    margin-left: 5px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.filter-dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Products Section */
+.books-section {
+    margin: 40px 0;
+    text-align: center;
+}
+
+.books-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.books-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.books-container .book-item {
+    width: 200px;
+    text-align: center;
+}
+
+/* Footer */
+.footer {
+    background-color: #f8f8f8;
+    padding: 20px 0;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+}

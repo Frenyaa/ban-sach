@@ -940,3 +940,22 @@ function setupAjaxHeaders(xhr) {
 //     $(target).fadeIn(600);
 
 // });
+
+$(document).ready(function () {
+    $(".banner-slider").owlCarousel({
+        items: 1,
+        loop: true,
+        margin: 0,
+        nav: true,
+        dots: true,
+        autoplay: true,
+        autoplayTimeout: 5000,
+        autoplayHoverPause: true,
+        navText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>']
+    });
+
+    // Dropdown functionality
+    $(".filter-dropdown").hover(function () {
+        $(this).find(".dropdown-content").toggle();
+    });
+});
