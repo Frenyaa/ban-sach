@@ -237,26 +237,4 @@
 }
 
 /* Owl Carousel CSS */
-<link rel="stylesheet" href="js/owlcarousel/owl.carousel.min.css">
-<link rel="stylesheet" href="js/owlcarousel/owl.theme.default.min.css">
-
-<!-- Owl Carousel JS -->
-<script src="js/Jquery/Jquery.min.js"></script>
-<script src="js/owlcarousel/owl.carousel.min.js"></script>
-
-<section class="book-covers">
-    <div class="container">
-        <h2>Sách mới xuất bản</h2>
-        <div class="book-slider owl-carousel owl-theme">
-            <div class="book-item">
-                <img src="img/books/book1.jpg" alt="Book 1">
-            </div>
-            <div class="book-item">
-                <img src="img/books/book2.jpg" alt="Book 2">
-            </div>
-            <div class="book-item">
-                <img src="img/books/book3.jpg" alt="Book 3">
-            </div>
-        </div>
-    </div>
-</section>
+/* Ensure that the HTML and JS code are moved to the appropriate HTML file. */
