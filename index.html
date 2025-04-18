@@ -124,6 +124,14 @@
 		.modal-content form .button:hover {
 			background-color: #2980b9;
 		}
+
+		/* Đúng */
+		.some-class {
+			display: -webkit-box;
+			-webkit-line-clamp: 3; /* Tiền tố cho trình duyệt WebKit */
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+		}
 	</style>
 </head>
 
@@ -365,7 +373,7 @@
 				autoplay: true,
 				autoplayTimeout: 5000,
 				autoplayHoverPause: true,
-				navText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right></i>']
+				navText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>'] // Đúng
 			});
 		});
 	</script>
