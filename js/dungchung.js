@@ -979,3 +979,35 @@ $(document).ready(function () {
         </div>
     </div>
 </div>
+
+// Mở modal đăng nhập/đăng ký
+document.querySelector(".user-menu a").addEventListener("click", function (e) {
+    e.preventDefault();
+    document.getElementById("login-modal").style.display = "block";
+});
+
+// Đóng modal khi nhấn vào nút "x"
+document.querySelector(".modal .close").addEventListener("click", function () {
+    document.getElementById("login-modal").style.display = "none";
+});
+
+// Đóng modal khi nhấn ra ngoài
+window.addEventListener("click", function (e) {
+    if (e.target === document.getElementById("login-modal")) {
+        document.getElementById("login-modal").style.display = "none";
+    }
+});
+
+// Xử lý form đăng nhập
+document.getElementById("login-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    alert("Đăng nhập thành công!");
+    document.getElementById("login-modal").style.display = "none";
+});
+
+// Xử lý form đăng ký
+document.getElementById("register-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    alert("Đăng ký thành công!");
+    document.getElementById("login-modal").style.display = "none";
+});

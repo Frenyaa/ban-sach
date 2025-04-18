@@ -276,7 +276,7 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 1rem 2rem;
-    background-color: #fff;
+    background-color: #3498db; /* Màu xanh dễ nhìn */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -305,7 +305,7 @@ body {
 
 .navbar .nav-links li a {
     text-decoration: none;
-    color: #333;
+    color: white; /* Màu chữ trắng */
     font-weight: 500;
     transition: color 0.3s ease;
 }
@@ -314,26 +314,26 @@ body {
     color: #007bff;
 }
 
+.navbar .nav-links li a:hover {
+    color: #f1c40f; /* Màu vàng khi hover */
+}
+
 .navbar .user-menu a {
     text-decoration: none;
-    color: #333;
+    color: white; /* Màu chữ trắng */
     font-size: 1.2rem;
     margin-left: 1rem;
+    transition: color 0.3s ease;
+}
+
+.navbar .user-menu a:hover {
+    color: #f1c40f; /* Màu vàng khi hover */
 }
 
 /* Logo */
 .logo {
     display: flex;
     align-items: center;
-    gap: 10px;
-}
-
-.logo img {
-    height: 40px;
-    width: auto;
-    transition: transform 0.3s ease;
-}
-
 .logo:hover img {
     transform: scale(1.1);
 }
@@ -1642,6 +1642,11 @@ footer {
 
 .search-header .input-search button:hover {
     background-color: #0056b3;
+}
+
+.promo-banner .black-friday-gif {
+    max-width: 200px !important;
+    height: auto !important;
 }
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
