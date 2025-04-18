@@ -77,7 +77,7 @@
 .main-banner {
     position: relative;
     width: 100%;
-    height: auto;
+    height: 500px;
     overflow: hidden;
 }
 
@@ -89,7 +89,8 @@
 
 .banner-slider img {
     width: 100%; /* Đảm bảo hình ảnh chiếm toàn bộ chiều rộng */
-    height: auto; /* Tự động điều chỉnh chiều cao */
+    height: 100%;
+    object-fit: cover;
 }
 
 .banner-slide {
@@ -187,38 +188,53 @@
 
 /* Promo Banner */
 .promo-banner {
-    width: 100%;
-    background: #f8f9fa;
-    padding: 2rem 0; /* Tăng padding để khung không bị dẹp */
-    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+    color: #fff;
+    padding: 20px 0;
     text-align: center;
 }
 
-.promo-banner .content {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-}
-
-.black-friday-gif {
-    height: 80px; /* Tăng chiều cao ảnh GIF */
-    width: auto;
-}
-
-.discount {
-    font-size: 2rem;
+.promo-banner .discount {
+    font-size: 24px;
     font-weight: bold;
-    color: #e94560;
+    color: #ff0000;
 }
 
-.text {
-    font-size: 1.5rem;
-    color: #333;
+.promo-banner .text {
+    font-size: 18px;
+    margin-left: 10px;
 }
 /* ======= End Banner ======== */
+
+/* Category Menu */
+.category-menu {
+    background-color: #f8f8f8;
+    padding: 10px 0;
+}
+
+.category-menu .menu-list {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    gap: 20px;
+}
+
+.category-menu .menu-list li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.category-menu .menu-list li a.active {
+    background-color: #007bff;
+    color: #fff;
+}
 
 /* Owl Carousel CSS */
 <link rel="stylesheet" href="js/owlcarousel/owl.carousel.min.css">
