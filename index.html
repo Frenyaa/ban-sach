@@ -39,10 +39,46 @@
 	<script src="js/dungchung.js"></script>
 	<script src="js/trangchu.js"></script>
 
+	<style>
+		.navbar {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 1rem 2rem;
+			background-color: #fff;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			width: 100%;
+		}
+
+		.navbar .logo img {
+			height: 40px;
+			width: auto;
+		}
+	</style>
 </head>
 
 <body>
 	<script> addTopNav(); </script>
+
+	<header class="navbar">
+		<div class="logo">
+			<img src="img/logo.png" alt="Logo">
+			<span>BookStore</span>
+		</div>
+		<ul class="nav-links">
+			<li><a href="#">Trang chủ</a></li>
+			<li><a href="#">Thể loại</a></li>
+			<li><a href="#">Sách mới</a></li>
+			<li><a href="#">Khuyến mãi</a></li>
+			<li><a href="#">Tin tức</a></li>
+			<li><a href="#">Liên hệ</a></li>
+		</ul>
+		<div class="user-menu">
+			<a href="#"><i class="fa fa-search"></i> Tìm kiếm</a>
+			<a href="#"><i class="fa fa-user"></i> Tài khoản</a>
+			<a href="#"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a>
+		</div>
+	</header>
 
 	<section>
 		<script> addHeader(); </script>
@@ -236,7 +272,7 @@
 				autoplay: true,
 				autoplayTimeout: 5000,
 				autoplayHoverPause: true,
-				navText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>']
+				navText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right></i>']
 			});
 		});
 	</script>
