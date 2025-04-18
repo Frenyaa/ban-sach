@@ -958,4 +958,30 @@ $(document).ready(function () {
     $(".filter-dropdown").hover(function () {
         $(this).find(".dropdown-content").toggle();
     });
+
+    $(".book-slider").owlCarousel({
+        items: 4, // Hiển thị 4 sách mỗi lần
+        loop: true,
+        margin: 20,
+        nav: true,
+        dots: false,
+        autoplay: true,
+        autoplayTimeout: 4000,
+        autoplayHoverPause: true,
+        navText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>']
+    });
 });
+
+<div class="main-banner">
+    <div class="banner-slider owl-carousel owl-theme">
+        <div class="banner-slide">
+            <img src="img/banners/banner1.png" alt="Banner 1">
+        </div>
+        <div class="banner-slide">
+            <img src="img/banners/banner2.png" alt="Banner 2">
+        </div>
+        <div class="banner-slide">
+            <img src="img/banners/banner3.png" alt="Banner 3">
+        </div>
+    </div>
+</div>

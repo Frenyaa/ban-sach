@@ -635,3 +635,27 @@
     background: #fff !important;
     transform: scale(1.2);
 }
+
+/* Book Covers Section */
+.book-covers {
+    padding: 2rem 0;
+    background: #f8f8f8;
+    text-align: center;
+}
+
+.book-covers h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.book-slider .book-item {
+    padding: 1rem;
+}
+
+.book-slider .book-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}

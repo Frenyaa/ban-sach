@@ -189,8 +189,9 @@
 .promo-banner {
     width: 100%;
     background: #f8f9fa;
-    padding: 1rem 0;
+    padding: 2rem 0; /* Tăng padding để khung không bị dẹp */
     margin-bottom: 2rem;
+    text-align: center;
 }
 
 .promo-banner .content {
@@ -203,7 +204,7 @@
 }
 
 .black-friday-gif {
-    height: 60px;
+    height: 80px; /* Tăng chiều cao ảnh GIF */
     width: auto;
 }
 
@@ -224,4 +225,22 @@
 <link rel="stylesheet" href="js/owlcarousel/owl.theme.default.min.css">
 
 <!-- Owl Carousel JS -->
+<script src="js/Jquery/Jquery.min.js"></script>
 <script src="js/owlcarousel/owl.carousel.min.js"></script>
+
+<section class="book-covers">
+    <div class="container">
+        <h2>Sách mới xuất bản</h2>
+        <div class="book-slider owl-carousel owl-theme">
+            <div class="book-item">
+                <img src="img/books/book1.jpg" alt="Book 1">
+            </div>
+            <div class="book-item">
+                <img src="img/books/book2.jpg" alt="Book 2">
+            </div>
+            <div class="book-item">
+                <img src="img/books/book3.jpg" alt="Book 3">
+            </div>
+        </div>
+    </div>
+</section>
