@@ -756,9 +756,8 @@ main {
 
 /* Banner */
 .banner {
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../images/banner.jpg');
+    background: url('../img/banners/banner1.png') no-repeat center center;
     background-size: cover;
-    background-position: center;
     height: 500px;
     display: flex;
     align-items: center;
@@ -1652,6 +1651,15 @@ footer {
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/banner.css">
+<link rel="stylesheet" href="css/topnav.css">
+<link rel="stylesheet" href="css/header.css">
+<link rel="stylesheet" href="css/taikhoan.css">
+<link rel="stylesheet" href="css/trangchu.css">
+<link rel="stylesheet" href="css/home_products.css">
+<link rel="stylesheet" href="css/pagination_phantrang.css">
+<link rel="stylesheet" href="css/footer.css">
+<script src="js/Jquery/Jquery.min.js"></script>
+<script src="js/owlcarousel/owl.carousel.min.js"></script>
 <script src="js/dungchung.js"></script>
 
 <div class="search-header">
@@ -1664,3 +1672,19 @@ footer {
         </div>
     </form>
 </div>
+<img src="img/logo.png" alt="Logo">
+<img src="img/banners/banner1.png" alt="Banner 1">
+
+$(document).ready(function () {
+    $(".banner-slider").owlCarousel({
+        items: 1,
+        loop: true,
+        margin: 0,
+        nav: true,
+        dots: true,
+        autoplay: true,
+        autoplayTimeout: 5000,
+        autoplayHoverPause: true,
+        navText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>']
+    });
+});
