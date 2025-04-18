@@ -1613,3 +1613,33 @@ footer {
     font-size: 14px;
     color: #666;
 }
+
+/* Khung tìm kiếm */
+.search-header .input-search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.search-header .input-search input {
+    width: 500px; /* Tăng chiều dài khung tìm kiếm */
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px;
+    font-size: 16px;
+}
+
+.search-header .input-search button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.search-header .input-search button:hover {
+    background-color: #0056b3;
+}
