@@ -969,13 +969,13 @@ $(document).ready(function () {
 <div class="main-banner">
     <div class="banner-slider owl-carousel owl-theme">
         <div class="banner-slide">
-            <img src="img/banners/banner1.png" alt="Banner 1">
+            <img src="img/banners/banner1.png" alt="Banner 1" />
         </div>
         <div class="banner-slide">
-            <img src="img/banners/banner2.png" alt="Banner 2">
+            <img src="img/banners/banner2.png" alt="Banner 2" />
         </div>
         <div class="banner-slide">
-            <img src="img/banners/banner3.png" alt="Banner 3">
+            <img src="img/banners/banner3.png" alt="Banner 3" />
         </div>
     </div>
 </div>
