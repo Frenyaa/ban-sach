@@ -1665,3 +1665,142 @@ footer {
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+
+/* Form đăng nhập */
+#login-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+    transform: scale(0);
+    transition: transform 0.3s ease;
+}
+
+#login-modal .taikhoan {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+}
+
+#login-modal .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.3s ease;
+}
+
+#login-modal .close:hover {
+    color: #e74c3c;
+}
+
+#login-modal .field-wrap {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+#login-modal .field-wrap label {
+    position: absolute;
+    transform: translateY(6px);
+    left: 13px;
+    color: #999;
+    transition: all 0.25s ease;
+    pointer-events: none;
+    font-size: 14px;
+}
+
+#login-modal .field-wrap label.active {
+    transform: translateY(-14px) scale(0.8);
+    color: #3498db;
+}
+
+#login-modal .field-wrap input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+#login-modal .field-wrap input:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 2px rgba(52,152,219,0.2);
+}
+
+#login-modal .button {
+    border: 0;
+    outline: none;
+    border-radius: 25px;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    background: #3498db;
+    color: white;
+    transition: all 0.5s ease;
+    cursor: pointer;
+    width: 100%;
+}
+
+#login-modal .button:hover {
+    background: #2980b9;
+}
+
+/* Modal đăng nhập */
+.containTaikhoan {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    transform: scale(0);
+    transition: transform 0.3s ease;
+}
+
+.containTaikhoan.active {
+    transform: scale(1);
+}
+
+.taikhoan {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+}
+
+.taikhoan .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.3s ease;
+}
+
+.taikhoan .close:hover {
+    color: #e74c3c;
+}
