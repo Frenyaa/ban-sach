@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="css/style.css">
+<script src="js/dungchung.js"></script>
+
 var adminInfo = [{
     "username": "admin",
     "pass": "adadad"
@@ -898,6 +901,32 @@ function setupAjaxHeaders(xhr) {
     xhr.setRequestHeader('Accept', 'application/json; charset=UTF-8');
 }
 
+// Mở modal đăng nhập
+function openLoginModal() {
+    document.getElementById("login-modal").classList.add("active");
+}
+
+// Đóng modal đăng nhập
+function closeLoginModal() {
+    document.getElementById("login-modal").classList.remove("active");
+}
+
+// Xử lý đăng nhập
+function handleLogin(event) {
+    event.preventDefault(); // Ngăn chặn reload trang
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    // Kiểm tra thông tin đăng nhập (ví dụ: kiểm tra với dữ liệu giả lập)
+    if (username === "admin" && password === "123456") {
+        alert("Đăng nhập thành công!");
+        closeLoginModal();
+    } else {
+        alert("Tên đăng nhập hoặc mật khẩu không đúng!");
+    }
+    return false;
+}
+
 // $('.taikhoan').find('input').on('keyup blur focus', function (e) {
 
 //     var $this = $(this),
@@ -966,17 +995,23 @@ $(document).ready(function () {
     });
 });
 
-<div class="main-banner">
-    <div class="banner-slider owl-carousel owl-theme">
-        <div class="banner-slide">
-            <img src="img/banners/banner1.png" alt="Banner 1" />
+<div>
+    <div class="main-banner">
+        <div class="banner-slider owl-carousel owl-theme">
+            <div class="banner-slide">
+                <img src="img/banners/banner1.png" alt="Banner 1" />
+            </div>
+            <div class="banner-slide">
+                <img src="img/banners/banner2.png" alt="Banner 2" />
+            </div>
+            <div class="banner-slide">
+                <img src="img/banners/banner3.png" alt="Banner 3" />
+            </div>
         </div>
-        <div class="banner-slide">
-            <img src="img/banners/banner2.png" alt="Banner 2" />
-        </div>
-        <div class="banner-slide">
-            <img src="img/banners/banner3.png" alt="Banner 3" />
-        </div>
+    </div>
+
+    <div class="user-menu">
+        <a href="#" onclick="openLoginModal()"><i class="fa fa-user"></i> Đăng nhập</a>
     </div>
 </div>
 
@@ -1011,3 +1046,91 @@ document.getElementById("register-form").addEventListener("submit", function (e)
     alert("Đăng ký thành công!");
     document.getElementById("login-modal").style.display = "none";
 });
+
+// Mở modal đăng nhập
+function openLoginModal() {
+    document.getElementById("login-modal").classList.add("active");
+}
+
+// Đóng modal đăng nhập
+function closeLoginModal() {
+    document.getElementById("login-modal").classList.remove("active");
+}
+
+// Xử lý đăng nhập
+function handleLogin(event) {
+    event.preventDefault(); // Ngăn chặn reload trang
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    // Kiểm tra thông tin đăng nhập (ví dụ: kiểm tra với dữ liệu giả lập)
+    if (username === "admin" && password === "123456") {
+        alert("Đăng nhập thành công!");
+        closeLoginModal();
+    } else {
+        alert("Tên đăng nhập hoặc mật khẩu không đúng!");
+    }
+    return false;
+}
+
+<div id="login-modal" class="containTaikhoan">
+    <div class="taikhoan">
+        <span class="close" onclick="closeLoginModal()">&times;</span>
+        <h2>Đăng nhập</h2>
+        <form id="login-form" onsubmit="return handleLogin(event);">
+            <div class="field-wrap">
+                <label for="username">Tên đăng nhập<span class="req">*</span></label>
+                <input id="username" name="username" type="text" required autocomplete="off" />
+            </div>
+            <div class="field-wrap">
+                <label for="password">Mật khẩu<span class="req">*</span></label>
+                <input id="password" name="password" type="password" required autocomplete="off" />
+            </div>
+            <button type="submit" class="button">Đăng nhập</button>
+        </form>
+    </div>
+</div>
+
+/* Modal đăng nhập */
+.containTaikhoan {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    transform: scale(0);
+    transition: transform 0.3s ease;
+}
+
+.containTaikhoan.active {
+    transform: scale(1);
+}
+
+.taikhoan {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+}
+
+.taikhoan .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.3s ease;
+}
+
+.taikhoan .close:hover {
+    color: #e74c3c;
+}
