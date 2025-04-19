@@ -1,5 +1,7 @@
-<link rel="stylesheet" href="css/style.css">
-<script src="js/dungchung.js"></script>
+<>
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/dungchung.js"></script>
+</>
 
 var adminInfo = [{
     "username": "admin",
@@ -1091,46 +1093,4 @@ function handleLogin(event) {
     </div>
 </div>
 
-/* Modal đăng nhập */
-.containTaikhoan {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    transform: scale(0);
-    transition: transform 0.3s ease;
-}
-
-.containTaikhoan.active {
-    transform: scale(1);
-}
-
-.taikhoan {
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    width: 100%;
-    max-width: 400px;
-    position: relative;
-}
-
-.taikhoan .close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 24px;
-    cursor: pointer;
-    color: #666;
-    transition: color 0.3s ease;
-}
-
-.taikhoan .close:hover {
-    color: #e74c3c;
-}
+// Removed CSS code. Ensure it is moved to a separate CSS file.
